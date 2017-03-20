@@ -17,9 +17,9 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(() =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     this.NewUser.Clear();
-                    this.IsLoading = false;
+                    this.IsBusy = false;
                 });
             }
         }
@@ -29,7 +29,7 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     var response = await _loginService.SignupAsync(NewUser.Email, NewUser.Password, new UserProfile
                     {
                         //TODO: utilizar automapper
@@ -46,7 +46,7 @@ namespace WhereAreYouMobile.ViewModels.User
                         await alertService.DisplayAlertAsync($"Verifique el correo : {NewUser.Email}, y active su cuenta!!");
                         await _navigation.PopAsync();
                     }
-                    this.IsLoading = false;
+                    this.IsBusy = false;
                 });
             }
         }

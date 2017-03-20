@@ -50,19 +50,5 @@ namespace WhereAreYouMobile.Data
         {
             
         }
-
-		        public ICommand AcceptInvitationCommand
-		{
-			get
-			{
-				return new Command(() =>
-			   {
-				   var a = "";
-				   var adas = a;
-				   a = adas;
-
-			   });
-			}
-		}
     }
 }

@@ -4,8 +4,9 @@
 		<userControls:InvitationReceivedUserControlViewModel>
 		</userControls:InvitationReceivedUserControlViewModel>
 	</ScrollView.BindingContext>
-	<StackLayout>
-		<Button Text="Refresh" Command="{Binding RefreshCommand}">
+    <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
+    <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
+        <Button Text="Refresh" Command="{Binding RefreshCommand}">
 		</Button>
 		<ListView RowHeight="70" RefreshCommand="{Binding RefreshCommand}" 
 			x:Name="ItemsListView" IsPullToRefreshEnabled="True" 
@@ -20,15 +21,15 @@
 						<StackLayout>
 							<StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" x:Name="itemRender" Orientation="Vertical">
 								<StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-									<abstractions:CircleImage HorizontalOptions="Start" VerticalOptions="End" Source="{Binding ImageUserDestination}" WidthRequest="75" HeightRequest="75" />
+									<abstractions:CircleImage HorizontalOptions="Start" VerticalOptions="End" Source="{Binding ImageUserInvitation}" WidthRequest="75" HeightRequest="75" />
 									<StackLayout Orientation="Vertical">
 										<StackLayout Orientation="Horizontal">
-											<Label Text="{Binding DisplayNameUserDestination}" TextColor="#f35e20" />
-											<Label Text="{Binding FirstNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
-											<Label Text="{Binding LastNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+											<Label Text="{Binding DisplayNameUserInvitation}" TextColor="#f35e20" />
+											<Label Text="{Binding FirstNameUserInvitation}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+											<Label Text="{Binding LastNameUserInvitation}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
 										</StackLayout>
 										<StackLayout>
-											<Label Text="{Binding EmailUserDestination}" TextColor="#f35e20" />
+											<Label Text="{Binding EmailUserInvitation}" TextColor="#f35e20" />
 										</StackLayout>
 									</StackLayout>
 								</StackLayout>

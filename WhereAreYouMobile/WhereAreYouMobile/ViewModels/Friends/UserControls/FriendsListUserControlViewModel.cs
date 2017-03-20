@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
+using WhereAreYouMobile.Services.ManagerServices;
 using WhereAreYouMobile.ViewModels.User;
 using Xamarin.Forms;
 
@@ -11,20 +14,34 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
     {
         #region Services
 
-        private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IFriendsManageService _friendsManageService;
 
         #endregion
 
         #region Properties
 
         public ObservableCollection<UserProfile> UsersFound { get; set; } = new ObservableCollection<UserProfile>();
-        private string _email;
-        public string Email
+        private ObservableCollection<UserProfile> _tmpUsersFound { get; set; } = new ObservableCollection<UserProfile>();
+        private string _info;
+        public string Info
         {
-            get { return _email; }
+            get { return _info; }
             set
             {
-                _email = value;
+                _info = value;
+
+                this.UsersFound.Clear();
+                var info = value.ToLower();
+
+                var list = this._tmpUsersFound.Where(x => x.Email.ToLower().Contains(info)
+                || x.DisplayName.ToLower().Contains(info)
+                || x.FirstName.ToLower().Contains(info)
+                   || x.LastName.ToLower().Contains(info))?.Select(s => s);
+
+                foreach (var item in list)
+                    this.UsersFound.Add(item);
+
+
                 OnPropertyChanged();
             }
         }
@@ -32,26 +49,29 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         #region  Commands
 
-
-        public ICommand SearchCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    var result = await _userProfileRepository.GetByEmailAsync(this.Email);
-
-                });
-            }
-        }
-
         #endregion
 
         public FriendsListUserControlViewModel()
         {
-            _userProfileRepository = DependencyService.Get<IUserProfileRepository>();
+            _friendsManageService = DependencyService.Get<IFriendsManageService>();
+            LoadDataAsync();
         }
 
+        private async Task LoadDataAsync()
+        {
+
+            await this.CallWithLoadingAsync(async () =>
+            {
+                var list = await _friendsManageService.GetAllFriendsAsync();
+                this.UsersFound.Clear();
+                this._tmpUsersFound.Clear();
+                foreach (var item in list)
+                {
+                    this.UsersFound.Add(item);
+                    _tmpUsersFound.Add(item);
+                }
+            });
+        }
 
     }
 }

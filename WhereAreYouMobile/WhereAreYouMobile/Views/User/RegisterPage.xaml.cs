@@ -10,7 +10,6 @@ namespace WhereAreYouMobile.Views.User
         public RegisterPage()
         {
             InitializeComponent();
-            this.BindingContext = new RegisterViewModel();
         }
     }
 }

@@ -17,7 +17,6 @@ namespace WhereAreYouMobile.Views.User
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
         }
 
 

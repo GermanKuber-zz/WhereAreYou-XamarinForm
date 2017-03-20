@@ -15,8 +15,6 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         #region Services
 
-        private readonly IFriendRequestRepository _friendRequestRepository;
-        private readonly IIdentityService _identityService;
         private readonly IFriendRequestManagerService _friendRequestManageService;
 
         #endregion
@@ -36,7 +34,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             }
         }
         private bool _isRefreshing = false;
-       
+
 
         public bool IsRefreshing
         {
@@ -57,18 +55,27 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             get
             {
                 return new Command(async (friendRequest) =>
-               {
-                   await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
-               });
+                {
+                    await this.CallWithLoadingAsync(async () =>
+                    {
+                        await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
+                        await this.LoadInvitations();
+                    });
+                });
             }
         }
+
         public ICommand RejectInvitationCommand
         {
             get
             {
                 return new Command(async (friendRequest) =>
                 {
-                    await _friendRequestManageService.RejectInviteAsync((FriendRequest)friendRequest);
+                    await this.CallWithLoadingAsync(async () =>
+                    {
+                        await _friendRequestManageService.RejectInviteAsync((FriendRequest)friendRequest);
+                        await this.LoadInvitations();
+                    });
                 });
             }
         }
@@ -78,12 +85,10 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             {
                 return new Command(async () =>
                 {
-                    IsRefreshing = true;
-
-                    await this.LoadInvitations();
-
-                    IsRefreshing = false;
-
+                    await this.CallWithLoadingAsync(async () =>
+                    {
+                        await this.LoadInvitations();
+                    });
                 });
             }
         }
@@ -94,15 +99,15 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         public InvitationReceivedUserControlViewModel()
         {
-            _friendRequestRepository = DependencyService.Get<IFriendRequestRepository>();
-            _identityService = DependencyService.Get<IIdentityService>();
+            DependencyService.Get<IFriendRequestRepository>();
+            DependencyService.Get<IIdentityService>();
             _friendRequestManageService = DependencyService.Get<IFriendRequestManagerService>();
 
         }
 
         public async Task LoadInvitations()
         {
-
+            this.IsBusy = true;
             var list = await _friendRequestManageService.GetAllRequestReceiveAsync();
             this.Invitations.Clear();
             if (list != null)
@@ -112,6 +117,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                     this.Invitations.Add(friendRequest);
                 }
             }
+            this.IsBusy = false;
         }
     }
 }

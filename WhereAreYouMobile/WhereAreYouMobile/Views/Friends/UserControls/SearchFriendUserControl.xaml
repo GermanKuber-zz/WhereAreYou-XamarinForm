@@ -8,8 +8,8 @@
     <ScrollView.BindingContext>
         <userControls:SearchFriendUserControlViewModel></userControls:SearchFriendUserControlViewModel>
     </ScrollView.BindingContext>
-    <ActivityIndicator Color="Red" IsRunning="{Binding IsLoading}" ></ActivityIndicator>
-    <StackLayout IsVisible="{Binding IsLoading,Converter={StaticResource NegateBooleanConverter}}">
+    <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
+    <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
         <StackLayout Orientation="Horizontal">
             <Entry Placeholder="Email / DisplayName" Text="{Binding Email}">
                 <Entry.Behaviors>

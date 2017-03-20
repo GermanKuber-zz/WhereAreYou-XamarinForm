@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:user="clr-namespace:WhereAreYouMobile.ViewModels.User;assembly=WhereAreYouMobile"
              x:Class="WhereAreYouMobile.Views.User.RegisterPage">
+    <ContentPage.BindingContext>
+        <user:RegisterViewModel></user:RegisterViewModel>
+    </ContentPage.BindingContext>
     <ScrollView>
         <StackLayout VerticalOptions="Center">
-            <ActivityIndicator Color="Red" IsRunning="{Binding IsLoading}" ></ActivityIndicator>
-            <StackLayout IsVisible="{Binding IsLoading,Converter={StaticResource NegateBooleanConverter}}" 
+            <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
+            <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}" 
                          MinimumWidthRequest="400"
                          VerticalOptions="Center">
                 <Label Text="Email"></Label>

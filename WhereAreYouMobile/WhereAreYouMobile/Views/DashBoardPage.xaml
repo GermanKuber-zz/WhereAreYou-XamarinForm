@@ -9,7 +9,7 @@
             <ScrollView>
                 <StackLayout Padding="10">
                     <Label Text="ContentPage" FontSize="40"/>
-                    
+
                 </StackLayout>
             </ScrollView>
         </ContentPage>
@@ -24,8 +24,8 @@
             </ScrollView>
         </ContentPage>
         <ContentPage Title="Mensajes">
-         
+
         </ContentPage>
     </TabbedPage.Children>
- 
+
 </TabbedPage>

@@ -124,7 +124,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     if (string.IsNullOrWhiteSpace(this.Email))
                     {
                         await _alertService.DisplayAlertAsync("Ingrese un Email valido, por favor!!");
@@ -145,7 +145,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                         }
                     }
 
-                    this.IsLoading = false;
+                    this.IsBusy = false;
                 });
             }
         }
@@ -157,7 +157,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                 {
                     if (UserFound != null)
                     {
-                        this.IsLoading = true;
+                        this.IsBusy = true;
                         var loguedUser = await _identityService.GetUserLoguedAsync();
                         if (await _friendRequestRepository.SendInvitationAsync(loguedUser, this.UserFound))
                         {
@@ -168,7 +168,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                             await _alertService.DisplayAlertAsync($"Error al enviar una solicitud de amistad a : {UserFound.Email}", "Error");
 
                         CheckStatus();
-                        this.IsLoading = false;
+                        this.IsBusy = false;
                     }
                 });
             }

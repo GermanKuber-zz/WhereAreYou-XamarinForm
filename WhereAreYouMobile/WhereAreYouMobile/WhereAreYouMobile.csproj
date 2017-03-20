@@ -76,12 +76,17 @@
     <Compile Include="Abstractions\ManagerServices\IUsersManageService.cs" />
     <Compile Include="Services\ManagerServices\FriendRequestManagerService.cs" />
     <Compile Include="Abstractions\ManagerServices\IFriendRequestManagerService.cs" />
+    <Compile Include="Services\ManagerServices\FriendsManageService.cs" />
+    <Compile Include="Abstractions\ManagerServices\IFriendsManageService.cs" />
     <Compile Include="Services\ManagerServices\UsersManageService.cs" />
     <Compile Include="Services\Repositories\FriendRequestRepository.cs" />
     <Compile Include="Abstractions\Repositories\IFriendRequestRepository.cs" />
     <Compile Include="Services\Repositories\FriendsRepository.cs" />
     <Compile Include="Abstractions\Repositories\IFriendsRepository.cs" />
     <Compile Include="Services\Repositories\UserProfileRepository.cs" />
+    <Compile Include="UserControls\LoadingUserControl.xaml.cs">
+      <DependentUpon>LoadingUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\FriendPageViewModel.cs" />
     <Compile Include="Abstractions\INavigationService.cs" />
     <Compile Include="ViewModels\Friends\UserControls\FriendsListUserControlViewModel.cs" />
@@ -320,6 +325,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Friends\UserControls\InvitationReceivedUserControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UserControls\LoadingUserControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

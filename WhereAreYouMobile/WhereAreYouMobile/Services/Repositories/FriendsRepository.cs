@@ -27,7 +27,7 @@ namespace WhereAreYouMobile.Services.Repositories
             try
             {
                 var relations = await this._dataService.Friends.Where(x => x.IdUser == id).ToEnumerableAsync();
-                if (relations != null)
+                if (relations != null && relations.Any())
                 {
                     var profilesFriends = await _dataService.UserProfileTable
                             .Where(x => relations.Select(f => f.IdFriend).ToList().Contains(x.Id)).ToEnumerableAsync();

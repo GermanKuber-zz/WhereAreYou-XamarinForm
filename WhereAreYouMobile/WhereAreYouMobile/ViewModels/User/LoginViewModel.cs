@@ -29,10 +29,10 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     var loginService = DependencyService.Get<ILoginService>();
                     var response = await loginService.LoguinAsync(Email, Password);
-                    this.IsLoading = false;
+                    this.IsBusy = false;
                     var alertService = DependencyService.Get<IAlertService>();
 
                     if (response == LoginResponseEnum.VerifyData)
@@ -60,7 +60,7 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     await _externaLoginService.Login(ExternalLoginTypeEnum.Facebook);
                 });
             }
@@ -71,7 +71,7 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     await _externaLoginService.Login(ExternalLoginTypeEnum.Gmail);
                 });
             }
@@ -82,7 +82,7 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     await _externaLoginService.Login(ExternalLoginTypeEnum.Twitter);
                 });
             }
@@ -103,10 +103,10 @@ namespace WhereAreYouMobile.ViewModels.User
             {
                 return new Command(async () =>
                 {
-                    this.IsLoading = true;
+                    this.IsBusy = true;
                     var loginService = DependencyService.Get<ILoginService>();
                     await loginService.SignupDummysync();
-                    this.IsLoading = false;
+                    this.IsBusy = false;
                 });
             }
         }
@@ -145,7 +145,7 @@ namespace WhereAreYouMobile.ViewModels.User
 
         public LoginViewModel()
         {
-            this.IsLoading = true;
+            this.IsBusy = true;
             _navigation = DependencyService.Get<INavigationService>();
             _identityService = DependencyService.Get<IIdentityService>();
             _externaLoginService = DependencyService.Get<IExternaLoginService>();
@@ -163,11 +163,11 @@ namespace WhereAreYouMobile.ViewModels.User
             if (await identityService.IsAuthenticatedAsync())
             {
                 await navigation.NavigateAsync(new DashBoardPage());
-                this.IsLoading = false;
+                this.IsBusy = false;
             }
             else
             {
-                this.IsLoading = false;
+                this.IsBusy = false;
             }
             //});
 

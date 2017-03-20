@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using WhereAreYouMobile.Abstractions;
+using WhereAreYouMobile.Services;
 using WhereAreYouMobile.Views;
 using Xamarin.Forms;
 
@@ -13,11 +14,18 @@ namespace WhereAreYouMobile.ViewModels.User
     {
         public BaseViewModel()
         {
+            LoggerService = DependencyService.Get<ILoggerService>();
         }
+
+
+
+        #region Properties
+
+        public ILoggerService LoggerService { get; set; }
 
         private string title = string.Empty;
 
- public string Title
+        public string Title
         {
             get { return title; }
             set { SetProperty(ref title, value); }
@@ -32,20 +40,26 @@ namespace WhereAreYouMobile.ViewModels.User
         }
 
 
-        private bool _isLoading;
-        public bool IsLoading
+        private bool _isBusy;
+        public bool IsBusy
         {
             get
             {
-                return _isLoading;
+                return _isBusy;
             }
             set
             {
-                _isLoading = value;
+                _isBusy = value;
                 OnPropertyChanged();
             }
         }
 
+
+        #endregion
+
+        #region Protected Methods
+
+        
         protected bool SetProperty<T>(
             ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
@@ -65,9 +79,31 @@ namespace WhereAreYouMobile.ViewModels.User
             return true;
         }
 
-        #region INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler PropertyChanged;
+        protected async Task CallWithLoadingAsync(Action callAction)
+        {
+            if (callAction ==null)
+                throw  new ArgumentNullException(nameof(callAction));
+
+            try
+            {
+                IsBusy = true;
+                callAction.Invoke();
+                IsBusy = false;
+            }
+            catch (Exception e)
+            {
+                await LoggerService.LogErrorAsync(e);
+                throw;
+            }
+         
+
+        }
+
         #endregion
+        #region INotifyPropertyChanged implementation
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -77,9 +113,10 @@ namespace WhereAreYouMobile.ViewModels.User
 
             changed(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
         public virtual async Task OnAppearingAsync()
         {
-           
+
         }
     }
 }

@@ -2,12 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:WhereAreYouMobile.Behaviors;assembly=WhereAreYouMobile"
+             xmlns:user="clr-namespace:WhereAreYouMobile.ViewModels.User;assembly=WhereAreYouMobile"
              x:Class="WhereAreYouMobile.Views.User.LoginPage"
-             
-               Appearing="Login_OnAppearing">
+             Appearing="Login_OnAppearing">
+    <ContentPage.BindingContext>
+        <user:LoginViewModel></user:LoginViewModel>
+    </ContentPage.BindingContext>
     <StackLayout VerticalOptions="Center" >
-        <ActivityIndicator Color="Red" IsRunning="{Binding IsLoading}" ></ActivityIndicator>
-        <StackLayout IsVisible="{Binding IsLoading,Converter={StaticResource NegateBooleanConverter}}"
+        <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
+        <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}"
             VerticalOptions="Center" Margin="30">
             <Label Text="Email"></Label>
             <Entry Placeholder="Email" Text="{Binding Email}">
