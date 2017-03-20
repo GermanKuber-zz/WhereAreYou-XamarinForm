@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WhereAreYouMobile.Views.User.RegisterPage">
+    <ScrollView>
+        <StackLayout VerticalOptions="Center">
+            <ActivityIndicator Color="Red" IsRunning="{Binding IsLoading}" ></ActivityIndicator>
+            <StackLayout IsVisible="{Binding IsLoading,Converter={StaticResource NegateBooleanConverter}}" 
+                         MinimumWidthRequest="400"
+                         VerticalOptions="Center">
+                <Label Text="Email"></Label>
+                <Entry Placeholder="Email" Text="{Binding NewUser.Email,Mode=TwoWay}"></Entry>
+                <Label Text="First Name"></Label>
+                <Entry Placeholder="First Name" Text="{Binding NewUser.FirstName,Mode=TwoWay}"></Entry>
+                <Label Text="Last Name"></Label>
+                <Entry Placeholder="Last Name" Text="{Binding NewUser.LastName,Mode=TwoWay}"></Entry>
+                <Label Text="Display Name"></Label>
+                <Entry Placeholder="Display Name" Text="{Binding NewUser.DisplayName,Mode=TwoWay}"></Entry>
+                <Label Text="Password"></Label>
+                <Entry IsPassword="True" Placeholder="Password" Text="{Binding NewUser.Password,Mode=TwoWay}"></Entry>
+                <Label Text="Re Password"></Label>
+                <Entry IsPassword="True" Placeholder="Re Password" Text="{Binding NewUser.RePassword,Mode=TwoWay}"></Entry>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Registrar" Command="{Binding RegisterCommand}"></Button>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

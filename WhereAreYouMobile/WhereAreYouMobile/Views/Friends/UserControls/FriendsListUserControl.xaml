@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ScrollView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:friends="clr-namespace:WhereAreYouMobile.ViewModels.Friends;assembly=WhereAreYouMobile"
+             xmlns:userControls="clr-namespace:WhereAreYouMobile.ViewModels.Friends.UserControls;assembly=WhereAreYouMobile"
+             x:Class="WhereAreYouMobile.Views.Friends.FriendsListUserControl">
+    <ScrollView.BindingContext>
+        <userControls:FriendsListUserControlViewModel></userControls:FriendsListUserControlViewModel>
+    </ScrollView.BindingContext>
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Entry Placeholder="Email / DisplayName" Text="{Binding Email}"></Entry>
+            <Button Text="Buscar" Command="{Binding SearchCommand}"></Button>
+        </StackLayout>
+        <ListView  ItemsSource="{Binding UsersFound}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="{Binding Image}" WidthRequest="60" HeightRequest="60" />
+                                <Label Text="{Binding DisplayName}"
+                                TextColor="#f35e20" />
+                                <Label Text="{Binding FirstName}"
+                                HorizontalOptions="EndAndExpand"
+                                TextColor="#503026" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ScrollView>
