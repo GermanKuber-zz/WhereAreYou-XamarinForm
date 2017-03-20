@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using WhereAreYouMobile.Abstractions.Config;
 using WhereAreYouMobile.iOS;
@@ -30,11 +31,13 @@ namespace WhereAreYouMobile.iOS
                     throw new Exception("ConfigFetcher Error - Verifique el NameSpace");
                 using (var reader = new StreamReader(stream))
                 {
-                    var doc = XDocument.Parse(await reader.ReadToEndAsync());
-                    if (doc.Element("config").Element(configElementName.ToString()) == null)
+                    var xmlDocument = new XmlDocument();
+                    xmlDocument.LoadXml(await reader.ReadToEndAsync());
+       
+                    if (xmlDocument.GetElementById("config").GetElementsByTagName(configElementName.ToString()) == null)
                         throw new Exception("ConfigFetcher Error - No se encuentra la configuración solicitada");
 
-                    return doc.Element("config").Element(configElementName.ToString())?.Value;
+                    return xmlDocument.GetElementById("config").GetElementsByTagName(configElementName.ToString())?.Item(0).Value;
                 }
             }
         }
