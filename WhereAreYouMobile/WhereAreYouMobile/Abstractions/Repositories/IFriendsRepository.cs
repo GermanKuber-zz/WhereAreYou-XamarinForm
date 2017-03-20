@@ -4,7 +4,7 @@ using WhereAreYouMobile.Data;
 
 namespace WhereAreYouMobile.Abstractions.Repositories
 {
-    public interface IFriendsRepository
+    public interface IFriendsRepository : IBaseRepository<Friend>
     {
         Task<IEnumerable<UserProfile>> GetAllFriendsByIdAsync(string id);
         Task<Friend> GetFriendByBothAsync(string idUserMain, string idFriendUser);

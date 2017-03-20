@@ -1,3 +1,4 @@
+using System;
 using WhereAreYouMobile.Views;
 
 namespace WhereAreYouMobile.Data
@@ -6,6 +7,12 @@ namespace WhereAreYouMobile.Data
     {
         public string IdUser { get; set; } = string.Empty;
         public string IdFriend { get; set; } = string.Empty;
-        public Friend DateCreate { get; set; }
+        public DateTime DateCreate { get; set; }
+
+        public Friend(string idUser, string idFriend) {
+            this.IdFriend = IdFriend;
+            this.IdUser = IdUser;
+            this.DateCreate = DateTime.Now;
+        }
     }
 }

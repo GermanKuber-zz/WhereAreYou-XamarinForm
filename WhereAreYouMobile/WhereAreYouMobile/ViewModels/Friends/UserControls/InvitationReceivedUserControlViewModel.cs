@@ -4,6 +4,7 @@ using System.Windows.Input;
 using WhereAreYouMobile.Abstractions;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
+using WhereAreYouMobile.Services.ManagerServices;
 using WhereAreYouMobile.ViewModels.User;
 using Xamarin.Forms;
 
@@ -16,6 +17,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         private readonly IFriendRequestRepository _friendRequestRepository;
         private readonly IIdentityService _identityService;
+        private readonly IFriendRequestManagerService _friendRequestManageService;
 
         #endregion
 
@@ -34,6 +36,8 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             }
         }
         private bool _isRefreshing = false;
+       
+
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -52,12 +56,19 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             get
             {
-                return new Command( () =>
+                return new Command(async (friendRequest) =>
+               {
+                   await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
+               });
+            }
+        }
+        public ICommand RejectInvitationCommand
+        {
+            get
+            {
+                return new Command(async (friendRequest) =>
                 {
-                    var a = "";
-					var adas = a;
-					a = adas;
-
+                    await _friendRequestManageService.RejectInviteAsync((FriendRequest)friendRequest);
                 });
             }
         }
@@ -77,17 +88,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             }
         }
 
-        public ICommand CancelInvitationCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
 
-
-                });
-            }
-        }
 
         #endregion
 
@@ -95,14 +96,14 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             _friendRequestRepository = DependencyService.Get<IFriendRequestRepository>();
             _identityService = DependencyService.Get<IIdentityService>();
+            _friendRequestManageService = DependencyService.Get<IFriendRequestManagerService>();
 
         }
 
         public async Task LoadInvitations()
         {
-            var userLoggued = await _identityService.GetUserLoguedAsync();
-            var list = await _friendRequestRepository.GetAllReceivedRequestsAsync(userLoggued.Id);
 
+            var list = await _friendRequestManageService.GetAllRequestReceiveAsync();
             this.Invitations.Clear();
             if (list != null)
             {

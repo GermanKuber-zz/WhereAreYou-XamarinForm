@@ -14,8 +14,8 @@
 				<DataTemplate>
 					<ViewCell>
 						<ViewCell.ContextActions>
-							<MenuItem CommandParameter="{Binding .}" Text="Aceptar" />
-							<MenuItem CommandParameter="{Binding .}" Text="Rechazar" IsDestructive="True" />
+                            <MenuItem Command="{Binding BindingContext.AcceptInvitationCommand, Source={x:Reference ScrollViewContainer}}"   CommandParameter="{Binding .}" Text="Aceptar" />
+                            <MenuItem Command="{Binding BindingContext.RejectInvitationCommand, Source={x:Reference ScrollViewContainer}}"   CommandParameter="{Binding .}" Text="Rechazar" IsDestructive="True" />
 						</ViewCell.ContextActions>
 						<StackLayout>
 							<StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" x:Name="itemRender" Orientation="Vertical">

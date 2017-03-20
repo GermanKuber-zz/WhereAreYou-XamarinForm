@@ -56,5 +56,26 @@ namespace WhereAreYouMobile.Services.Repositories
             return friend;
         }
 
+        /// <summary>
+        /// Si el Id no esta null o empty, intenta actualizar, si esta null o empty inserta
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public async Task SaveAsync(Friend item)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(item.Id))
+                    await _dataService.Friends.InsertAsync(item);
+
+                else
+                    await _dataService.Friends.UpdateAsync(item);
+            }
+            catch (Exception e)
+            {
+                await _loggerService.LogErrorAsync(e);
+                throw;
+            }
+        }
     }
 }

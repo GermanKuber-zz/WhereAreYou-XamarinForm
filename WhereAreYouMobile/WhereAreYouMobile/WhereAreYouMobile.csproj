@@ -74,6 +74,8 @@
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Abstractions\Repositories\IUserProfileRepository.cs" />
     <Compile Include="Abstractions\ManagerServices\IUsersManageService.cs" />
+    <Compile Include="Services\ManagerServices\FriendRequestManagerService.cs" />
+    <Compile Include="Abstractions\ManagerServices\IFriendRequestManagerService.cs" />
     <Compile Include="Services\ManagerServices\UsersManageService.cs" />
     <Compile Include="Services\Repositories\FriendRequestRepository.cs" />
     <Compile Include="Abstractions\Repositories\IFriendRequestRepository.cs" />

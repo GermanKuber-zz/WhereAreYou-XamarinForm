@@ -63,6 +63,27 @@ namespace WhereAreYouMobile.Services.Repositories
 
         }
         /// <summary>
+        /// Si el Id no esta null o empty, intenta actualizar, si esta null o empty inserta
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public async Task SaveAsync(FriendRequest item)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(item.Id))
+                    await _dataService.FriendRequestTable.InsertAsync(item);
+
+                else
+                    await _dataService.FriendRequestTable.UpdateAsync(item);
+            }
+            catch (Exception e)
+            {
+                await _loggerService.LogErrorAsync(e);
+                throw;
+            }
+        }
+        /// <summary>
         /// Retorna la lista de invitaciones enviadas por el usuario
         /// </summary>
         /// <param name="idUserSendInvitation"></param>
@@ -132,13 +153,13 @@ namespace WhereAreYouMobile.Services.Repositories
             try
             {
 
-         
-            var invitation = await this._dataService.FriendRequestTable.Where(
-                    x => (x.IdUserDestinationInvitation == idFriendUser))
-                .ToListAsync();
 
-            var firsts = invitation.SingleOrDefault();
-            return firsts;
+                var invitation = await this._dataService.FriendRequestTable.Where(
+                        x => (x.IdUserDestinationInvitation == idFriendUser))
+                    .ToListAsync();
+
+                var firsts = invitation.SingleOrDefault();
+                return firsts;
             }
             catch (Exception e)
             {

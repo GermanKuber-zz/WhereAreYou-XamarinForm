@@ -37,7 +37,6 @@ namespace WhereAreYouMobile.Services.Repositories
             }
             catch (Exception e)
             {
-
                 throw;
             }
 
