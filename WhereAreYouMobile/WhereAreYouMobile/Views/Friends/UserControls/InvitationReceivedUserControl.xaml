@@ -7,25 +7,34 @@
 	<StackLayout>
 		<Button Text="Refresh" Command="{Binding RefreshCommand}">
 		</Button>
-		<ListView RefreshCommand="{Binding RefreshCommand}" x:Name="ItemsListView" IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsRefreshing}" ItemsSource="{Binding Invitations}" SelectedItem="{Binding InvitationSelected}">
+		<ListView RowHeight="70" RefreshCommand="{Binding RefreshCommand}" 
+			x:Name="ItemsListView" IsPullToRefreshEnabled="True" 
+			IsRefreshing="{Binding IsRefreshing}" ItemsSource="{Binding Invitations}" SelectedItem="{Binding InvitationSelected}">
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<ViewCell.View>
-							<StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center" x:Name="itemRender" Orientation="Vertical">
-								<StackLayout Orientation="Horizontal">
-									<abstractions:CircleImage Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="End" Source="{Binding ImageUserDestination}" WidthRequest="75" HeightRequest="75" />
-									<Label Text="{Binding DisplayNameUserDestination}" TextColor="#f35e20" />
-									<Label Text="{Binding FirstNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
-									<Label Text="{Binding LastNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+						<ViewCell.ContextActions>
+							<MenuItem CommandParameter="{Binding .}" Text="Aceptar" />
+							<MenuItem CommandParameter="{Binding .}" Text="Rechazar" IsDestructive="True" />
+						</ViewCell.ContextActions>
+						<StackLayout>
+							<StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" x:Name="itemRender" Orientation="Vertical">
+								<StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+									<abstractions:CircleImage HorizontalOptions="Start" VerticalOptions="End" Source="{Binding ImageUserDestination}" WidthRequest="75" HeightRequest="75" />
+									<StackLayout Orientation="Vertical">
+										<StackLayout Orientation="Horizontal">
+											<Label Text="{Binding DisplayNameUserDestination}" TextColor="#f35e20" />
+											<Label Text="{Binding FirstNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+											<Label Text="{Binding LastNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+										</StackLayout>
+										<StackLayout>
+											<Label Text="{Binding EmailUserDestination}" TextColor="#f35e20" />
+										</StackLayout>
+									</StackLayout>
 								</StackLayout>
-								<StackLayout Orientation="Horizontal">
-									<Button Text="Aceptar" Command="{Binding BindingContext.AcceptInvitationCommand, Source={x:Reference ScrollViewContainer}}" CommandParameter="{Binding .}">
-									</Button>
-									<!--<Button Text="Cancelar" Command="{Binding Path=BindingContext.AcceptInvitationCommand, Source={x:Reference Name=ItemsListView},}"></Button>-->
-								</StackLayout>
+
 							</StackLayout>
-						</ViewCell.View>
+						</StackLayout>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>
