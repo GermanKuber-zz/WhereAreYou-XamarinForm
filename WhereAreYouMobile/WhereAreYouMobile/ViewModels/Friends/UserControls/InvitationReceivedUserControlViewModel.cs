@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 {
-    public class InvitationReceivedUserControl : BaseViewModel
+    public class InvitationReceivedUserControlViewModel : BaseViewModel
     {
 
         #region Services
@@ -52,9 +52,11 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             get
             {
-                return new Command(async () =>
+                return new Command( () =>
                 {
                     var a = "";
+					var adas = a;
+					a = adas;
 
                 });
             }
@@ -89,7 +91,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         #endregion
 
-        public InvitationReceivedUserControl()
+        public InvitationReceivedUserControlViewModel()
         {
             _friendRequestRepository = DependencyService.Get<IFriendRequestRepository>();
             _identityService = DependencyService.Get<IIdentityService>();

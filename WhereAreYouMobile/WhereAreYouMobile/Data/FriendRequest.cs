@@ -1,5 +1,13 @@
 ﻿using System;
 using WhereAreYouMobile.Views;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using WhereAreYouMobile.Abstractions;
+using WhereAreYouMobile.Abstractions.Repositories;
+using WhereAreYouMobile.Data;
+using WhereAreYouMobile.ViewModels.User;
+using Xamarin.Forms;
 
 namespace WhereAreYouMobile.Data
 {
@@ -42,5 +50,19 @@ namespace WhereAreYouMobile.Data
         {
             
         }
+
+		        public ICommand AcceptInvitationCommand
+		{
+			get
+			{
+				return new Command(() =>
+			   {
+				   var a = "";
+				   var adas = a;
+				   a = adas;
+
+			   });
+			}
+		}
     }
 }

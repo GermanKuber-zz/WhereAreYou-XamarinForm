@@ -83,7 +83,7 @@
     <Compile Include="ViewModels\FriendPageViewModel.cs" />
     <Compile Include="Abstractions\INavigationService.cs" />
     <Compile Include="ViewModels\Friends\UserControls\FriendsListUserControlViewModel.cs" />
-    <Compile Include="ViewModels\Friends\UserControls\InvitationReceivedUserControl.cs" />
+    <Compile Include="ViewModels\Friends\UserControls\InvitationReceivedUserControlViewModel.cs" />
     <Compile Include="ViewModels\Friends\UserControls\InvitationSendedUserControlViewModel.cs" />
     <Compile Include="ViewModels\Friends\UserControls\SearchFriendUserControlViewModel.cs" />
     <Compile Include="ViewModels\TasksViewModel.cs" />

@@ -15,7 +15,6 @@ namespace WhereAreYouMobile.Views.Friends.UserControls
         public InvitationReceivedUserControl()
         {
             InitializeComponent();
-            this.BindingContext = new InvitationReceivedUserControl();
         }
     }
 }
