@@ -336,6 +336,28 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WhereAreYouMobile.Contracts\WhereAreYouMobile.Contracts.csproj">
+      <Project>{F2D0210E-E340-465B-9F9F-D5DEABA3EFF9}</Project>
+      <Name>WhereAreYouMobile.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WhereAreYouMobile.Core\WhereAreYouMobile.Core.csproj">
+      <Project>{5B63F2BA-EE7A-46DA-8C52-345E7B17BEAB}</Project>
+      <Name>WhereAreYouMobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WhereAreYouMobile.Data\WhereAreYouMobile.Data.csproj">
+      <Project>{64357781-466A-4651-8DA2-B7E4C34F27AD}</Project>
+      <Name>WhereAreYouMobile.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WhereAreYouMobile.Services\WhereAreYouMobile.Services.csproj">
+      <Project>{7FBFF888-0AEA-4E08-88E7-8687449F07E2}</Project>
+      <Name>WhereAreYouMobile.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WhereAreYouMobile.ViewModels\WhereAreYouMobile.ViewModels.csproj">
+      <Project>{2FDBD30B-64AB-475A-B1AC-6DF217F703C8}</Project>
+      <Name>WhereAreYouMobile.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
