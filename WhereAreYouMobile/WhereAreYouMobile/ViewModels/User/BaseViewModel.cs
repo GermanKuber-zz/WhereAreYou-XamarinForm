@@ -79,7 +79,7 @@ namespace WhereAreYouMobile.ViewModels.User
             return true;
         }
 
-        protected async Task CallWithLoadingAsync(Action callAction)
+        protected async Task CallWithLoadingAsync(CallWithLoadingDelegate callAction)
         {
             if (callAction ==null)
                 throw  new ArgumentNullException(nameof(callAction));
@@ -118,5 +118,7 @@ namespace WhereAreYouMobile.ViewModels.User
         {
 
         }
+        public delegate void CallWithLoadingDelegate();
     }
+
 }

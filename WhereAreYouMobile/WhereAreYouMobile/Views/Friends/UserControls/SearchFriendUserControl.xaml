@@ -11,7 +11,7 @@
     <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
     <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
         <StackLayout Orientation="Horizontal">
-            <Entry Placeholder="Email / DisplayName" Text="{Binding Email}">
+            <Entry Keyboard="Email" Placeholder="Email / DisplayName" Text="{Binding Email}">
                 <Entry.Behaviors>
                     <behaviors:EmailValidatorBehavior />
                 </Entry.Behaviors>

@@ -34,8 +34,6 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 			}
 		}
 		private bool _isRefreshing = false;
-
-
 		public bool IsRefreshing
 		{
 			get { return _isRefreshing; }
