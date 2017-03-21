@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WhereAreYouMobile.Abstractions;
+using WhereAreYouMobile.Abstractions.ManagerServices;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
 using WhereAreYouMobile.Services.ManagerServices;
@@ -33,7 +34,7 @@ namespace WhereAreYouMobile.Services.ManagerServices
                 if (friendRequest == null)
                     throw new ArgumentNullException(nameof(friendRequest));
 
-                friendRequest.Response = FriendRequestResponseEnum.Accepted;
+                friendRequest.Status = FriendRequestStatusEnum.Accepted;
 
                 await _friendRequestRepository.SaveAsync(friendRequest);
 
@@ -65,7 +66,7 @@ namespace WhereAreYouMobile.Services.ManagerServices
                 if (friendRequest == null)
                     throw new ArgumentNullException(nameof(friendRequest));
 
-                friendRequest.Response = FriendRequestResponseEnum.Rejected;
+                friendRequest.Status = FriendRequestStatusEnum.Rejected;
 
                 await _friendRequestRepository.SaveAsync(friendRequest);
 

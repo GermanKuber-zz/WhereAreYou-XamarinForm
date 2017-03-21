@@ -14,13 +14,11 @@ namespace WhereAreYouMobile.Services.Repositories
     {
 
         private readonly IDataService _dataService;
-        private readonly IIdentityService _identityService;
         private readonly ILoggerService _loggerService;
 
         public FriendRequestRepository()
         {
             _dataService = DependencyService.Get<IDataService>();
-            _identityService = DependencyService.Get<IIdentityService>();
             _loggerService = DependencyService.Get<ILoggerService>();
         }
         public async Task<bool> SendInvitationAsync(UserProfile profileSend, UserProfile profileReceive)
@@ -41,8 +39,8 @@ namespace WhereAreYouMobile.Services.Repositories
                         x => x.IdUserDestinationInvitation == profileReceive.Id
                              && x.IdUserSendInvitation == profileSend.Id
                              &&
-                             (x.Response == FriendRequestResponseEnum.Sended
-                             || x.Response == FriendRequestResponseEnum.Accepted)).ToEnumerableAsync();
+                             (x.Status == FriendRequestStatusEnum.Sended
+                             || x.Status == FriendRequestStatusEnum.Accepted)).ToEnumerableAsync();
 
                 if (invitation == null || !invitation.Any())
                 {
@@ -119,7 +117,7 @@ namespace WhereAreYouMobile.Services.Repositories
                     throw new ArgumentNullException(nameof(idUserReceived));
 
                 return await this._dataService.FriendRequestTable.Where(x => x.IdUserDestinationInvitation == idUserReceived
-				                                                       && x.Response == FriendRequestResponseEnum.Sended)	
+				                                                       && x.Status == FriendRequestStatusEnum.Sended)	
                    													   .ToEnumerableAsync();
             }			
             catch (Exception e)
@@ -128,6 +126,15 @@ namespace WhereAreYouMobile.Services.Repositories
                 throw;
             }
 
+        }
+        public async Task<FriendRequest> GetByUsersIdAsync(string idUser, string idFriend)
+        {
+            var heInvitation = (await this._dataService.FriendRequestTable.Where(
+                    x => (x.IdUserSendInvitation == idUser && x.IdUserDestinationInvitation == idFriend)
+                    ||
+                    (x.IdUserSendInvitation == idFriend && x.IdUserDestinationInvitation == idUser))
+                .ToEnumerableAsync()).SingleOrDefault();
+            return heInvitation;
         }
 
         /// <summary>
@@ -153,8 +160,6 @@ namespace WhereAreYouMobile.Services.Repositories
         {
             try
             {
-
-
                 var invitation = await this._dataService.FriendRequestTable.Where(
                         x => (x.IdUserDestinationInvitation == idFriendUser))
                     .ToListAsync();

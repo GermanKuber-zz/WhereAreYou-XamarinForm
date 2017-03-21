@@ -1,10 +1,11 @@
 namespace WhereAreYouMobile.Data
 {
-    public enum FriendRequestResponseEnum
+    public enum FriendRequestStatusEnum
     {
         Accepted,
         Canceled,
         Rejected,
-        Sended
+        Sended,
+        DeletedFriend
     }
 }

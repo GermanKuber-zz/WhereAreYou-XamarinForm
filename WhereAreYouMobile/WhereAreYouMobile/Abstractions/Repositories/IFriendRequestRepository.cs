@@ -11,6 +11,7 @@ namespace WhereAreYouMobile.Abstractions.Repositories
         Task<FriendRequest> GetSendedRequestAsync(string idUserMain, string idFriendUser);
         Task<FriendRequest> GetReceivedRequsetAsync(string idUserMain, string idFriendUser);
         Task<IEnumerable<FriendRequest>> GetAllReceivedRequestsAsync(string idUserReceived);
+        Task<FriendRequest> GetByUsersIdAsync(string idUser, string idFriend);
     }
 
     public interface IBaseRepository<TEntity>

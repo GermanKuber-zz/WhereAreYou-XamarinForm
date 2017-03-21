@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WhereAreYouMobile.Abstractions;
+using WhereAreYouMobile.Abstractions.ManagerServices;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
 using WhereAreYouMobile.Services.ManagerServices;

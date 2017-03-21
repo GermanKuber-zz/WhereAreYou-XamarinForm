@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WhereAreYouMobile.Abstractions;
+using WhereAreYouMobile.Abstractions.ManagerServices;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
 using WhereAreYouMobile.Services.ManagerServices;
@@ -24,7 +25,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         #region Properties
 
         public ObservableCollection<UserProfile> UsersFound { get; set; } = new ObservableCollection<UserProfile>();
-        private ObservableCollection<UserProfile> _tmpUsersFound { get; set; } = new ObservableCollection<UserProfile>();
+        private ObservableCollection<UserProfile> TmpUsersFound { get; set; } = new ObservableCollection<UserProfile>();
         private string _info;
         public string Info
         {
@@ -36,7 +37,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                 this.UsersFound.Clear();
                 var info = value.ToLower();
 
-                var list = this._tmpUsersFound.Where(x => x.Email.ToLower().Contains(info)
+                var list = this.TmpUsersFound.Where(x => x.Email.ToLower().Contains(info)
                 || x.DisplayName.ToLower().Contains(info)
                 || x.FirstName.ToLower().Contains(info)
                    || x.LastName.ToLower().Contains(info))?.Select(s => s);
@@ -73,10 +74,10 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                     {
                         var response = await _alertService.DisplayAlertAsync(
                             $"Esta seguro que quiere eliminar a {((UserProfile)profileDelete).DisplayName}",
-                            "Elinar Usuario", "Aceptar", "Cancelar");
+                            "Eliminar Usuario", "Aceptar", "Cancelar");
                         if (response)
                         {
-                            //TODO: Eliminar el amigo
+                            await _friendsManageService.DeleteFriend((UserProfile)profileDelete);
                             await LoadDataAsync();
                         }
                     });
@@ -90,10 +91,10 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             _friendsManageService = DependencyService.Get<IFriendsManageService>();
             _alertService = DependencyService.Get<IAlertService>();
-            MessagingCenter.Subscribe<InvitationReceivedUserControlViewModel>(this, "Hi", (sender) =>
-                            {
-                                var a = "";
-                            });
+            //MessagingCenter.Subscribe<InvitationReceivedUserControlViewModel>(this, "Hi", (sender) =>
+            //                {
+            //                    var a = "";
+            //                });
             LoadDataAsync();
         }
 
@@ -105,11 +106,11 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                 {
                     var list = await _friendsManageService.GetAllFriendsAsync();
                     this.UsersFound.Clear();
-                    this._tmpUsersFound.Clear();
+                    this.TmpUsersFound.Clear();
                     foreach (var item in list)
                     {
                         this.UsersFound.Add(item);
-                        _tmpUsersFound.Add(item);
+                        TmpUsersFound.Add(item);
                     }
                 });
             }

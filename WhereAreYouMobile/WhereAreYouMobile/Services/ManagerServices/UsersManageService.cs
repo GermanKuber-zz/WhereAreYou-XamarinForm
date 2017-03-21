@@ -54,22 +54,22 @@ namespace WhereAreYouMobile.Services.ManagerServices
 
                 if (invitation != null)
                 {
-                    if (invitation.Response == FriendRequestResponseEnum.Canceled)
+                    if (invitation.Status == FriendRequestStatusEnum.Canceled)
                         return StatusUsers.HeCanceled;
-                    if (invitation.Response == FriendRequestResponseEnum.Rejected)
+                    if (invitation.Status == FriendRequestStatusEnum.Rejected)
                         return StatusUsers.HeRejected;
-                    if (invitation.Response == FriendRequestResponseEnum.Sended)
+                    if (invitation.Status == FriendRequestStatusEnum.Sended)
                         return StatusUsers.YouWaitingResponse;
                 }
                 //Verifico si el me envio una invitacion
                 var heInvitation = await this._friendRequestRepository.GetReceivedRequsetAsync(idUserMain, idFriendUser);
                 if (heInvitation != null)
                 {
-                    if (heInvitation.Response == FriendRequestResponseEnum.Canceled)
+                    if (heInvitation.Status == FriendRequestStatusEnum.Canceled)
                         return StatusUsers.YouCanceled;
-                    if (heInvitation.Response == FriendRequestResponseEnum.Rejected)
+                    if (heInvitation.Status == FriendRequestStatusEnum.Rejected)
                         return StatusUsers.YouRejected;
-                    if (heInvitation.Response == FriendRequestResponseEnum.Sended)
+                    if (heInvitation.Status == FriendRequestStatusEnum.Sended)
                         return StatusUsers.HeWaitingResponse;
                 }
 

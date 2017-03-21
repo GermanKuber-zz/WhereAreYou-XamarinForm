@@ -8,5 +8,6 @@ namespace WhereAreYouMobile.Abstractions.Repositories
     {
         Task<IEnumerable<UserProfile>> GetAllFriendsByIdAsync(string id);
         Task<Friend> GetFriendByBothAsync(string idUserMain, string idFriendUser);
+        Task DeleteFriendAsync(string idUser, string idFriend);
     }
 }

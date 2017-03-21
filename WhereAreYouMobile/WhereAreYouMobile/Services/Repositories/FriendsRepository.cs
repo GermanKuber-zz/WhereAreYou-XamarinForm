@@ -26,20 +26,44 @@ namespace WhereAreYouMobile.Services.Repositories
         {
             try
             {
-				//obtengo todos los id de mis amigos
-				//TODO: debo de trabar con un cache
+                //obtengo todos los id de mis amigos
+                //TODO: debo de trabajar con un cache
                 var relations = await this._dataService.Friends.Where(x => x.IdUser == id || x.IdFriend == id).ToEnumerableAsync();
-				var asa = relations.ToList();
-				var idList = relations.Select(x => x.IdFriend).ToList();
+       
+                var idList = relations.Select(x => x.IdFriend).ToList();
                 if (relations != null && relations.Any())
                 {
 
-					
+
                     var profilesFriends = await _dataService.UserProfileTable
                             .Where(x => idList.Contains(x.Id)).ToEnumerableAsync();
                     return profilesFriends;
                 }
                 return new List<UserProfile>();
+            }
+            catch (Exception e)
+            {
+                await _loggerService.LogErrorAsync(e);
+                throw;
+            }
+        }
+
+        public async Task DeleteFriendAsync(string idUser, string idFriend)
+        {
+            try
+            {
+                //obtengo todos los id de mis amigos
+                //TODO: debo de trabar con un cache
+                var relationShip = (await this._dataService.Friends.Where(x => (x.IdUser == idUser && x.IdFriend == idFriend)
+                                                                            ||
+                                                                            (x.IdUser == idFriend && x.IdFriend == idUser)).ToEnumerableAsync())?.SingleOrDefault();
+              
+             
+                if (relationShip != null)
+                {
+                    await this._dataService.Friends.DeleteAsync(relationShip);
+                }
+
             }
             catch (Exception e)
             {
@@ -53,7 +77,7 @@ namespace WhereAreYouMobile.Services.Repositories
         /// <param name="idUserMain"></param>
         /// <param name="idFriendUser"></param>
         /// <returns></returns>
-       public  async Task<Friend> GetFriendByBothAsync(string idUserMain, string idFriendUser)
+        public async Task<Friend> GetFriendByBothAsync(string idUserMain, string idFriendUser)
         {
             var friend =
             (await this._dataService.Friends.Where(
