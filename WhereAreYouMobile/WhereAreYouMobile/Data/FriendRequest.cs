@@ -26,9 +26,9 @@ namespace WhereAreYouMobile.Data
         public string ImageUserDestination { get; set; }
         public string DisplayNameUserDestination { get; set; }
         public DateTime DateSend { get; set; }
-        public DateTime? DateResponse { get; set; } = null;
-        public DateTime? DateAccept { get; set; } = null;
-        public DateTime? DateDeletedFriend { get; set; } = null;
+        public DateTime? DateResponse { get; set; } = DateTime.MinValue;
+        public DateTime? DateAccept { get; set; } = DateTime.MinValue;
+        public DateTime? DateDeletedFriend { get; set; } = DateTime.MinValue;
         public FriendRequestStatusEnum Status { get; set; }
 
         public FriendRequest(UserProfile profileSendInvitation, UserProfile profileReceiveInvitation)

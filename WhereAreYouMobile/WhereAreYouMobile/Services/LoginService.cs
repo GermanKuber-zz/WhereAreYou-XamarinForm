@@ -155,7 +155,6 @@ namespace WhereAreYouMobile.Services
             }
 
         }
-
         public async Task SignupDummysync()
         {
             try
@@ -205,6 +204,7 @@ namespace WhereAreYouMobile.Services
             }
 
         }
+
     }
 
     public enum SignupResponseEnum

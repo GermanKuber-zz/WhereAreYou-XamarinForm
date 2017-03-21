@@ -11,5 +11,6 @@ namespace WhereAreYouMobile.Abstractions
         Task<bool> LoguinAsync(UserProfile userProfile);
         Task<SignupResponseEnum> SignupAsync(string username, string password, UserProfile userProfile);
         Task SignupDummysync();
+
     }
 }

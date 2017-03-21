@@ -93,7 +93,8 @@ namespace WhereAreYouMobile.Services.Repositories
                 if (string.IsNullOrWhiteSpace(idUserSendInvitation))
                     throw new ArgumentNullException(nameof(idUserSendInvitation));
 
-                return await this._dataService.FriendRequestTable.Where(x => x.IdUserSendInvitation == idUserSendInvitation)
+                return await this._dataService.FriendRequestTable.Where(x => x.IdUserSendInvitation == idUserSendInvitation
+                                                                       && x.Status != FriendRequestStatusEnum.DeletedFriend)
                     .ToEnumerableAsync();
             }
             catch (Exception e)
@@ -117,9 +118,9 @@ namespace WhereAreYouMobile.Services.Repositories
                     throw new ArgumentNullException(nameof(idUserReceived));
 
                 return await this._dataService.FriendRequestTable.Where(x => x.IdUserDestinationInvitation == idUserReceived
-				                                                       && x.Status == FriendRequestStatusEnum.Sended)	
-                   													   .ToEnumerableAsync();
-            }			
+                                                                       && x.Status == FriendRequestStatusEnum.Sended)
+                                                                          .ToEnumerableAsync();
+            }
             catch (Exception e)
             {
                 await _loggerService.LogErrorAsync(e);
