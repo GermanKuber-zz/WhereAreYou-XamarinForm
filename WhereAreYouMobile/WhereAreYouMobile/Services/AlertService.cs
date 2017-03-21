@@ -11,7 +11,11 @@ namespace WhereAreYouMobile.Services
     {
         public async Task DisplayAlertAsync(string message, string title = "Información", string buttonText = "OK")
         {
-           await Application.Current.MainPage.DisplayAlert(message, title, buttonText);
+            await Application.Current.MainPage.DisplayAlert(message, title, buttonText);
+        }
+        public async Task<bool> DisplayAlertAsync(string message, string title, string buttonOk,string buttonCancel)
+        {
+            return await Application.Current.MainPage.DisplayAlert(message, title, buttonOk,buttonCancel);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WhereAreYouMobile.Abstractions;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
 using WhereAreYouMobile.Services.ManagerServices;
@@ -15,6 +17,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         #region Services
 
         private readonly IFriendsManageService _friendsManageService;
+        private readonly IAlertService _alertService;
 
         #endregion
 
@@ -45,37 +48,76 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                 OnPropertyChanged();
             }
         }
+        private FriendRequest _userSelected;
+
+
+        public FriendRequest UserSelected
+        {
+            get { return _userSelected; }
+            set
+            {
+                _userSelected = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region  Commands
+        public ICommand DeleteFriendCommand
+        {
+            get
+            {
+                return new Command(async (profileDelete) =>
+                {
+                    await this.CallWithLoadingAsync(async () =>
+                    {
+                        var response = await _alertService.DisplayAlertAsync(
+                            $"Esta seguro que quiere eliminar a {((UserProfile)profileDelete).DisplayName}",
+                            "Elinar Usuario", "Aceptar", "Cancelar");
+                        if (response)
+                        {
+                            //TODO: Eliminar el amigo
+                            await LoadDataAsync();
+                        }
+                    });
+                });
+            }
+        }
 
         #endregion
 
         public FriendsListUserControlViewModel()
         {
             _friendsManageService = DependencyService.Get<IFriendsManageService>();
-	MessagingCenter.Subscribe<InvitationReceivedUserControlViewModel>(this, "Hi", (sender) =>
-					{
-						var a = "";
-					});
+            _alertService = DependencyService.Get<IAlertService>();
+            MessagingCenter.Subscribe<InvitationReceivedUserControlViewModel>(this, "Hi", (sender) =>
+                            {
+                                var a = "";
+                            });
             LoadDataAsync();
         }
 
         private async Task LoadDataAsync()
         {
-
-            await this.CallWithLoadingAsync(async () =>
+            try
             {
-                var list = await _friendsManageService.GetAllFriendsAsync();
-                this.UsersFound.Clear();
-                this._tmpUsersFound.Clear();
-                foreach (var item in list)
+                await this.CallWithLoadingAsync(async () =>
                 {
-                    this.UsersFound.Add(item);
-                    _tmpUsersFound.Add(item);
-                }
-            });
+                    var list = await _friendsManageService.GetAllFriendsAsync();
+                    this.UsersFound.Clear();
+                    this._tmpUsersFound.Clear();
+                    foreach (var item in list)
+                    {
+                        this.UsersFound.Add(item);
+                        _tmpUsersFound.Add(item);
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                await LoggerService.LogErrorAsync(e);
+                throw;
+            }
         }
-
     }
 }
