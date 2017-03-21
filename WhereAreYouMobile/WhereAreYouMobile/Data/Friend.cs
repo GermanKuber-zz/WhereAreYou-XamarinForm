@@ -10,8 +10,8 @@ namespace WhereAreYouMobile.Data
         public DateTime DateCreate { get; set; }
 
         public Friend(string idUser, string idFriend) {
-            this.IdFriend = IdFriend;
-            this.IdUser = IdUser;
+            this.IdFriend = idFriend;
+            this.IdUser = idUser;
             this.DateCreate = DateTime.Now;
         }
     }

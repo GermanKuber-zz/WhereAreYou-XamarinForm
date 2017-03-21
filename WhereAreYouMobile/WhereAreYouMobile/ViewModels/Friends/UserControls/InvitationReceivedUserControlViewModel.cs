@@ -10,114 +10,121 @@ using Xamarin.Forms;
 
 namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 {
-    public class InvitationReceivedUserControlViewModel : BaseViewModel
-    {
+	public class InvitationReceivedUserControlViewModel : BaseViewModel
+	{
 
-        #region Services
+		#region Services
 
-        private readonly IFriendRequestManagerService _friendRequestManageService;
+		private readonly IFriendRequestManagerService _friendRequestManageService;
 
-        #endregion
+		#endregion
 
-        #region Properties
+		#region Properties
 
-        public ObservableCollection<FriendRequest> Invitations { get; set; } = new ObservableCollection<FriendRequest>();
+		public ObservableCollection<FriendRequest> Invitations { get; set; } = new ObservableCollection<FriendRequest>();
 
-        private FriendRequest _invitationSelected;
-        public FriendRequest InvitationSelected
-        {
-            get { return _invitationSelected; }
-            set
-            {
-                _invitationSelected = value;
-                OnPropertyChanged();
-            }
-        }
-        private bool _isRefreshing = false;
-
-
-        public bool IsRefreshing
-        {
-            get { return _isRefreshing; }
-            set
-            {
-                _isRefreshing = value;
-                OnPropertyChanged();
-            }
-        }
-        #endregion
-
-        #region  Commands
+		private FriendRequest _invitationSelected;
+		public FriendRequest InvitationSelected
+		{
+			get { return _invitationSelected; }
+			set
+			{
+				_invitationSelected = value;
+				OnPropertyChanged();
+			}
+		}
+		private bool _isRefreshing = false;
 
 
-        public ICommand AcceptInvitationCommand
-        {
-            get
-            {
-                return new Command(async (friendRequest) =>
-                {
-                    await this.CallWithLoadingAsync(async () =>
-                    {
-                        await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
-                        await this.LoadInvitations();
-                    });
-                });
-            }
-        }
+		public bool IsRefreshing
+		{
+			get { return _isRefreshing; }
+			set
+			{
+				_isRefreshing = value;
+				OnPropertyChanged();
+			}
+		}
+		#endregion
 
-        public ICommand RejectInvitationCommand
-        {
-            get
-            {
-                return new Command(async (friendRequest) =>
-                {
-                    await this.CallWithLoadingAsync(async () =>
-                    {
-                        await _friendRequestManageService.RejectInviteAsync((FriendRequest)friendRequest);
-                        await this.LoadInvitations();
-                    });
-                });
-            }
-        }
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await this.CallWithLoadingAsync(async () =>
-                    {
-                        await this.LoadInvitations();
-                    });
-                });
-            }
-        }
+		#region  Commands
 
 
+		public ICommand AcceptInvitationCommand
+		{
+			get
+			{
+				return new Command(async (friendRequest) =>
+				{
+					await this.CallWithLoadingAsync(async () =>
+					{
+						await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
+						await this.LoadInvitations();
+					});
+				});
+			}
+		}
 
-        #endregion
+		public ICommand RejectInvitationCommand
+		{
+			get
+			{
+				return new Command(async (friendRequest) =>
+				{
+					await this.CallWithLoadingAsync(async () =>
+					{
+						await _friendRequestManageService.RejectInviteAsync((FriendRequest)friendRequest);
+						await this.LoadInvitations();
+					});
+				});
+			}
+		}
+		public ICommand RefreshCommand
+		{
+			get
+			{
+				return new Command(async (s) =>
+				{
+					await this.CallWithLoadingAsync(async () =>
+					{
+						//await this.LoadInvitations();
+						 MessagingCenter.Send<InvitationReceivedUserControlViewModel>(this, "Hi");
+					});
+				});
+			}
+		}
 
-        public InvitationReceivedUserControlViewModel()
-        {
-            DependencyService.Get<IFriendRequestRepository>();
-            DependencyService.Get<IIdentityService>();
-            _friendRequestManageService = DependencyService.Get<IFriendRequestManagerService>();
 
-        }
 
-        public async Task LoadInvitations()
-        {
-            this.IsBusy = true;
-            var list = await _friendRequestManageService.GetAllRequestReceiveAsync();
-            this.Invitations.Clear();
-            if (list != null)
-            {
-                foreach (var friendRequest in list)
-                {
-                    this.Invitations.Add(friendRequest);
-                }
-            }
-            this.IsBusy = false;
-        }
-    }
+		#endregion
+
+		public InvitationReceivedUserControlViewModel()
+		{
+			DependencyService.Get<IFriendRequestRepository>();
+			DependencyService.Get<IIdentityService>();
+			_friendRequestManageService = DependencyService.Get<IFriendRequestManagerService>();
+
+
+
+
+			this.LoadInvitations();
+
+		}
+
+		public async Task LoadInvitations()
+		{
+			await this.CallWithLoadingAsync(async () =>
+			{
+				var list = await _friendRequestManageService.GetAllRequestReceiveAsync();
+				this.Invitations.Clear();
+				if (list != null)
+				{
+					foreach (var friendRequest in list)
+					{
+						this.Invitations.Add(friendRequest);
+					}
+				}
+			});
+		}
+	}
 }

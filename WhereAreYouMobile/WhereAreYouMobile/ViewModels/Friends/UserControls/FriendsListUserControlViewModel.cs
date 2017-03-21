@@ -54,6 +54,10 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         public FriendsListUserControlViewModel()
         {
             _friendsManageService = DependencyService.Get<IFriendsManageService>();
+	MessagingCenter.Subscribe<InvitationReceivedUserControlViewModel>(this, "Hi", (sender) =>
+					{
+						var a = "";
+					});
             LoadDataAsync();
         }
 

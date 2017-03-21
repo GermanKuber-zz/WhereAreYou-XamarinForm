@@ -26,11 +26,17 @@ namespace WhereAreYouMobile.Services.Repositories
         {
             try
             {
-                var relations = await this._dataService.Friends.Where(x => x.IdUser == id).ToEnumerableAsync();
+				//obtengo todos los id de mis amigos
+				//TODO: debo de trabar con un cache
+                var relations = await this._dataService.Friends.Where(x => x.IdUser == id || x.IdFriend == id).ToEnumerableAsync();
+				var asa = relations.ToList();
+				var idList = relations.Select(x => x.IdFriend).ToList();
                 if (relations != null && relations.Any())
                 {
+
+					
                     var profilesFriends = await _dataService.UserProfileTable
-                            .Where(x => relations.Select(f => f.IdFriend).ToList().Contains(x.Id)).ToEnumerableAsync();
+                            .Where(x => idList.Contains(x.Id)).ToEnumerableAsync();
                     return profilesFriends;
                 }
                 return new List<UserProfile>();

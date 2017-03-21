@@ -26,7 +26,7 @@ namespace WhereAreYouMobile.Data
         public string ImageUserDestination { get; set; }
         public string DisplayNameUserDestination { get; set; }
         public DateTime DateSend { get; set; }
-        public DateTime DateResponse { get; set; }
+		public DateTime? DateResponse { get; set; } = null;
         public FriendRequestResponseEnum Response { get; set; }
 
         public FriendRequest(UserProfile profileSendInvitation, UserProfile profileReceiveInvitation)
@@ -42,6 +42,7 @@ namespace WhereAreYouMobile.Data
             FirstNameUserDestination = profileReceiveInvitation.FirstName;
             LastNameUserDestination = profileReceiveInvitation.LastName;
             ImageUserDestination = profileReceiveInvitation.Image;
+			DisplayNameUserDestination = profileReceiveInvitation.DisplayName;
             this.DateSend = DateTime.Now;
             this.Response = FriendRequestResponseEnum.Sended;
         }
