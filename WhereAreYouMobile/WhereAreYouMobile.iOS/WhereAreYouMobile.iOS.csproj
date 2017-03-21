@@ -250,7 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WhereAreYouMobile\WhereAreYouMobile.csproj">
-      <Project>{c8c59d77-869d-4f3f-be27-80afe688516e}</Project>
+      <Project>{A009F9F8-7250-422D-853A-2BAFE90B0FDF}</Project>
       <Name>WhereAreYouMobile</Name>
     </ProjectReference>
   </ItemGroup>
