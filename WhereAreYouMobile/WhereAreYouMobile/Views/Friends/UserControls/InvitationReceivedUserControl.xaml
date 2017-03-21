@@ -4,7 +4,7 @@
 		<userControls:InvitationReceivedUserControlViewModel>
 		</userControls:InvitationReceivedUserControlViewModel>
 	</ScrollView.BindingContext>
-    <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
+    <ActivityIndicator Color="Red" IsRunning="False" ></ActivityIndicator>
     <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
         <Button Text="Refresh" Command="{Binding RefreshCommand}">
 		</Button>

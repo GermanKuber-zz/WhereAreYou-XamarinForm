@@ -3,38 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:WhereAreYouMobile.Behaviors;assembly=WhereAreYouMobile"
              xmlns:user="clr-namespace:WhereAreYouMobile.ViewModels.User;assembly=WhereAreYouMobile"
+             xmlns:userControls="clr-namespace:WhereAreYouMobile.UserControls;assembly=WhereAreYouMobile"
              x:Class="WhereAreYouMobile.Views.User.LoginPage"
              Appearing="Login_OnAppearing">
     <ContentPage.BindingContext>
         <user:LoginViewModel></user:LoginViewModel>
     </ContentPage.BindingContext>
     <StackLayout VerticalOptions="Center" >
-        <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
-        <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}"
-            VerticalOptions="Center" Margin="30">
-            <Label Text="Email"></Label>
-            <Entry Placeholder="Email" Text="{Binding Email}">
-                <Entry.Behaviors>
-                    <behaviors:EmailValidatorBehavior />
-                </Entry.Behaviors>
-            </Entry>
-            <Label Text="Password"></Label>
-            <Entry IsPassword="True" Placeholder="Password" Text="{Binding Password}"></Entry>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Conectar" Command="{Binding LoginCommand}"></Button>
-                <Button Text="Registrar" Command="{Binding RegisterCommand}"></Button>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Facebook" Command="{Binding LoginFacebookCommand}"></Button>
-                <!--<Button Text="Gmail" Command="{Binding LoginGmailCommand}"></Button>-->
-                <!--<Button Text="Twitter" Command="{Binding LoginTwitterCommand}"></Button>-->
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Dummy Users" Command="{Binding DummyUsersCommand}"></Button>
-                <!--<Button Text="Gmail" Command="{Binding LoginGmailCommand}"></Button>-->
-                <!--<Button Text="Twitter" Command="{Binding LoginTwitterCommand}"></Button>-->
-            </StackLayout>
-        </StackLayout>
+        <userControls:LoadingUserControl IsBusy="False">
+
+            <userControls:LoadingUserControl.ContainerContent >
+                <StackLayout VerticalOptions="Center" Margin="30">
+                    <Label Text="Email"></Label>
+                    <Entry Placeholder="Email" Text="{Binding Email}">
+                        <Entry.Behaviors>
+                            <behaviors:EmailValidatorBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label Text="Password"></Label>
+                    <Entry IsPassword="True" Placeholder="Password" Text="{Binding Password}"></Entry>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Button Text="Conectar" Command="{Binding LoginCommand}"></Button>
+                        <Button Text="Registrar" Command="{Binding RegisterCommand}"></Button>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Button Text="Facebook" Command="{Binding LoginFacebookCommand}"></Button>
+                        <!--<Button Text="Gmail" Command="{Binding LoginGmailCommand}"></Button>-->
+                        <!--<Button Text="Twitter" Command="{Binding LoginTwitterCommand}"></Button>-->
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Button Text="Dummy Users" Command="{Binding DummyUsersCommand}"></Button>
+                        <!--<Button Text="Gmail" Command="{Binding LoginGmailCommand}"></Button>-->
+                        <!--<Button Text="Twitter" Command="{Binding LoginTwitterCommand}"></Button>-->
+                    </StackLayout>
+                </StackLayout>
+            </userControls:LoadingUserControl.ContainerContent>
+        </userControls:LoadingUserControl>
+
+
     </StackLayout>
 
 </ContentPage>
