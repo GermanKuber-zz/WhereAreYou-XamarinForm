@@ -113,18 +113,15 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             this.IsRefreshing = true;
             this.IsBusy = true;
-            await this.CallWithLoadingAsync(async () =>
+            var list = await _friendRequestManageService.GetAllRequestReceiveAsync();
+            this.Invitations.Clear();
+            if (list != null)
             {
-                var list = await _friendRequestManageService.GetAllRequestReceiveAsync();
-                this.Invitations.Clear();
-                if (list != null)
+                foreach (var friendRequest in list)
                 {
-                    foreach (var friendRequest in list)
-                    {
-                        this.Invitations.Add(friendRequest);
-                    }
+                    this.Invitations.Add(friendRequest);
                 }
-            });
+            }
             this.IsBusy = false;
             this.IsRefreshing = false;
         }

@@ -10,8 +10,7 @@
         <user:LoginViewModel></user:LoginViewModel>
     </ContentPage.BindingContext>
     <StackLayout VerticalOptions="Center" >
-        <userControls:LoadingUserControl IsBusy="True">
-
+        <userControls:LoadingUserControl Input="{Binding IsBusy,Mode=TwoWay}">
             <userControls:LoadingUserControl.ContainerContent >
                 <StackLayout VerticalOptions="Center" Margin="30">
                     <Label Text="Email"></Label>

@@ -6,17 +6,17 @@
              x:Class="WhereAreYouMobile.Views.Friends.FriendsPage"
             Appearing="FriendsPage_OnAppearing">
     <TabbedPage.Children>
-        <ContentPage Title="Amigos">
-            <friends:FriendsListUserControl></friends:FriendsListUserControl>
+        <ContentPage Title="Amigos" >
+            <friends:FriendsListUserControl VerticalOptions="Center"></friends:FriendsListUserControl>
         </ContentPage>
         <ContentPage Title="Invitaciones Recibidas">
-            <userControls:InvitationReceivedUserControl></userControls:InvitationReceivedUserControl>
+            <userControls:InvitationReceivedUserControl  VerticalOptions="Center"></userControls:InvitationReceivedUserControl>
         </ContentPage>
         <ContentPage Title="Invitaciones Enviadas">
-            <userControls:InvitationSendedUserControl></userControls:InvitationSendedUserControl>
+            <userControls:InvitationSendedUserControl  VerticalOptions="Center"></userControls:InvitationSendedUserControl>
         </ContentPage>
         <ContentPage Title="Buscar Amigos">
-            <userControls:SearchFriendUserControl x:Name="searchFriendUserControl"></userControls:SearchFriendUserControl>
+            <userControls:SearchFriendUserControl x:Name="searchFriendUserControl"  VerticalOptions="Center"></userControls:SearchFriendUserControl>
         </ContentPage>
     </TabbedPage.Children>
 </TabbedPage>

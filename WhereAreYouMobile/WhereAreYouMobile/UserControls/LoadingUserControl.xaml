@@ -2,8 +2,9 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="WhereAreYouMobile.UserControls.LoadingUserControl">
     <ContentView.Content>
         <StackLayout>
-            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
-            <Frame x:Name="ContentFrame" IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}" >
+            <ActivityIndicator IsVisible="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
+            <Frame HeightRequest="900" Padding="0" Margin="0" OutlineColor="Transparent" HasShadow="False"  x:Name="ContentFrame" IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}" >
+            
             </Frame>
         </StackLayout>
     </ContentView.Content>

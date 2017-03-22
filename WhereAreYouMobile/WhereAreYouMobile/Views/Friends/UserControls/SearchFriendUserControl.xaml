@@ -4,47 +4,51 @@
              xmlns:userControls="clr-namespace:WhereAreYouMobile.ViewModels.Friends.UserControls;assembly=WhereAreYouMobile"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:behaviors="clr-namespace:WhereAreYouMobile.Behaviors;assembly=WhereAreYouMobile"
+             xmlns:userControls1="clr-namespace:WhereAreYouMobile.UserControls;assembly=WhereAreYouMobile"
              x:Class="WhereAreYouMobile.Views.Friends.UserControls.SearchFriendUserControl">
     <ScrollView.BindingContext>
         <userControls:SearchFriendUserControlViewModel></userControls:SearchFriendUserControlViewModel>
     </ScrollView.BindingContext>
-    <ActivityIndicator Color="Red" IsRunning="{Binding IsBusy}" ></ActivityIndicator>
-    <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
-        <StackLayout Orientation="Horizontal">
-            <Entry Keyboard="Email" Placeholder="Email / DisplayName" Text="{Binding Email}">
-                <Entry.Behaviors>
-                    <behaviors:EmailValidatorBehavior />
-                </Entry.Behaviors>
-            </Entry>
-            <Button Text="Buscar" Command="{Binding SearchCommand}"></Button>
-        </StackLayout>
-        <StackLayout IsVisible="{Binding Found}">
-            <abstractions:CircleImage
+    <userControls1:LoadingUserControl Input="{Binding IsBusy,Mode=TwoWay}">
+        <userControls1:LoadingUserControl.ContainerContent >
+            <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
+                <StackLayout Orientation="Horizontal">
+                    <Entry Keyboard="Email" Placeholder="Email / DisplayName" Text="{Binding Email}">
+                        <Entry.Behaviors>
+                            <behaviors:EmailValidatorBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Button Text="Buscar" Command="{Binding SearchCommand}"></Button>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding Found}">
+                    <abstractions:CircleImage
                 HorizontalOptions="Start"
                             VerticalOptions="End"   
                             Source="{Binding UserFound.Image}"
                             WidthRequest="75" HeightRequest="75"/>
-            <Label Text="Email"></Label>
-            <Label Text="{Binding UserFound.Email,Mode=TwoWay}"></Label>
-            <Label Text="First Name"></Label>
-            <Label Text="{Binding UserFound.FirstName,Mode=TwoWay}"></Label>
-            <Label Text="Last Name"></Label>
-            <Label Text="{Binding UserFound.LastName,Mode=TwoWay}"></Label>
-            <Label Text="Display Name"></Label>
-            <Label  Text="{Binding UserFound.DisplayName,Mode=TwoWay}"></Label>
-            <StackLayout IsVisible="{Binding VisibleRegister}"
+                    <Label Text="Email"></Label>
+                    <Label Text="{Binding UserFound.Email,Mode=TwoWay}"></Label>
+                    <Label Text="First Name"></Label>
+                    <Label Text="{Binding UserFound.FirstName,Mode=TwoWay}"></Label>
+                    <Label Text="Last Name"></Label>
+                    <Label Text="{Binding UserFound.LastName,Mode=TwoWay}"></Label>
+                    <Label Text="Display Name"></Label>
+                    <Label  Text="{Binding UserFound.DisplayName,Mode=TwoWay}"></Label>
+                    <StackLayout IsVisible="{Binding VisibleRegister}"
                 Orientation="Horizontal">
-                <Button Text="Invitar" Command="{Binding AddFriendCommand}"></Button>
-            </StackLayout>
-            <StackLayout  IsVisible="{Binding VisibleRegister, Converter={ StaticResource NegateBooleanConverter}}"
+                        <Button Text="Invitar" Command="{Binding AddFriendCommand}"></Button>
+                    </StackLayout>
+                    <StackLayout  IsVisible="{Binding VisibleRegister, Converter={ StaticResource NegateBooleanConverter}}"
              Orientation="Horizontal">
-                <Label  Text=""></Label>
-                <Label Text="Status"></Label>
-                <Label IsVisible="{Binding VisibleCanceled}" Text="Cancelado"></Label>
-                <Label IsVisible="{Binding VisibleWaitingStatus}" Text="Esperando Respuesta"></Label>
-                <Label IsVisible="{Binding VisibleRejected}" Text="Rechazado"></Label>
-                <Label IsVisible="{Binding VisibleFriends}" Text="Amigos"></Label>
+                        <Label  Text=""></Label>
+                        <Label Text="Status"></Label>
+                        <Label IsVisible="{Binding VisibleCanceled}" Text="Cancelado"></Label>
+                        <Label IsVisible="{Binding VisibleWaitingStatus}" Text="Esperando Respuesta"></Label>
+                        <Label IsVisible="{Binding VisibleRejected}" Text="Rechazado"></Label>
+                        <Label IsVisible="{Binding VisibleFriends}" Text="Amigos"></Label>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
-    </StackLayout>
+        </userControls1:LoadingUserControl.ContainerContent>
+    </userControls1:LoadingUserControl>
 </ScrollView>

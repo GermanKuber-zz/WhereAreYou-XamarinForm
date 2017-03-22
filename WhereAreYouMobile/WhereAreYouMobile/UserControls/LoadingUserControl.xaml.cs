@@ -29,11 +29,7 @@ namespace WhereAreYouMobile.UserControls
             get { return ContentFrame.Content; }
             set { ContentFrame.Content = value; }
         }
-        public Color ContentBackgroundColor
-        {
-            get { return ContentFrame.BackgroundColor; }
-            set { ContentFrame.BackgroundColor = value; }
-        }
+
 
         #endregion
 
@@ -51,5 +47,26 @@ namespace WhereAreYouMobile.UserControls
             changed(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+
+        public static readonly BindableProperty InputProperty = BindableProperty.Create(nameof(InputView),
+                                                                                        typeof(bool),
+                                                                                        typeof(LoadingUserControl),
+                                                                                        false,
+                                                                                        BindingMode.Default,
+                                                                                        null,
+                                                                                        InputPropertyChanged);
+
+
+
+        private static void InputPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+
+        {
+
+            var self = (LoadingUserControl)bindable;
+
+            self.IsBusy = (bool)newValue;
+
+        }
     }
 }

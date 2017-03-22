@@ -96,23 +96,23 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             //                    var a = "";
             //                });
             LoadDataAsync();
+
         }
 
         private async Task LoadDataAsync()
         {
             try
             {
-                await this.CallWithLoadingAsync(async () =>
+                this.IsBusy = true;
+                var list = await _friendsManageService.GetAllFriendsAsync();
+                this.UsersFound.Clear();
+                this.TmpUsersFound.Clear();
+                foreach (var item in list)
                 {
-                    var list = await _friendsManageService.GetAllFriendsAsync();
-                    this.UsersFound.Clear();
-                    this.TmpUsersFound.Clear();
-                    foreach (var item in list)
-                    {
-                        this.UsersFound.Add(item);
-                        TmpUsersFound.Add(item);
-                    }
-                });
+                    this.UsersFound.Add(item);
+                    TmpUsersFound.Add(item);
+                }
+                this.IsBusy = false;
             }
             catch (Exception e)
             {

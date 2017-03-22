@@ -105,6 +105,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         public async Task LoadInvitations()
         {
+            this.IsBusy = true;
             var userLoggued = await _identityService.GetUserLoguedAsync();
             var list = await _friendRequestRepository.GetSendedRequestsAsync(userLoggued.Id);
 
@@ -116,6 +117,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                     this.InvitationsSended.Add(friendRequest);
                 }
             }
+            this.IsBusy = false;
         }
     }
 }

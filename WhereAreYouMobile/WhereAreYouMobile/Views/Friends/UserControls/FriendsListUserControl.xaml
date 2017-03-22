@@ -4,43 +4,48 @@
              xmlns:friends="clr-namespace:WhereAreYouMobile.ViewModels.Friends;assembly=WhereAreYouMobile"
              xmlns:userControls="clr-namespace:WhereAreYouMobile.ViewModels.Friends.UserControls;assembly=WhereAreYouMobile"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:userControls1="clr-namespace:WhereAreYouMobile.UserControls;assembly=WhereAreYouMobile"
              x:Class="WhereAreYouMobile.Views.Friends.FriendsListUserControl">
     <ScrollView.BindingContext>
         <userControls:FriendsListUserControlViewModel></userControls:FriendsListUserControlViewModel>
     </ScrollView.BindingContext>
-    <StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Entry Placeholder="Email / DisplayName" Text="{Binding Info}"></Entry>
-        </StackLayout>
-        <ListView  RowHeight="70"  ItemsSource="{Binding UsersFound}" SelectedItem="{Binding UserSelected}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.ContextActions>
-                            
-                            <MenuItem Command="{Binding BindingContext.DeleteFriendCommand, Source={x:Reference ScrollViewContainer}}"   CommandParameter="{Binding .}" Text="Eliminar" IsDestructive="True" />
-                        </ViewCell.ContextActions>
-                        <StackLayout>
-                            <StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" x:Name="itemRender" Orientation="Vertical">
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                    <abstractions:CircleImage HorizontalOptions="Start" VerticalOptions="End" Source="{Binding Image}" WidthRequest="75" HeightRequest="75" />
-                                    <StackLayout Orientation="Vertical">
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding DisplayName}" TextColor="#f35e20" />
-                                            <Label Text="{Binding FirstName}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
-                                            <Label Text="{Binding LastName}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+    <userControls1:LoadingUserControl Input="{Binding IsBusy,Mode=TwoWay}">
+        <userControls1:LoadingUserControl.ContainerContent >
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Entry Placeholder="Email / DisplayName"  HorizontalOptions="FillAndExpand" Text="{Binding Info}"></Entry>
+                </StackLayout>
+                <ListView  RowHeight="70"  ItemsSource="{Binding UsersFound}" SelectedItem="{Binding UserSelected}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+
+                                    <MenuItem Command="{Binding BindingContext.DeleteFriendCommand, Source={x:Reference ScrollViewContainer}}"   CommandParameter="{Binding .}" Text="Eliminar" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <StackLayout>
+                                    <StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" x:Name="itemRender" Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                            <abstractions:CircleImage HorizontalOptions="Start" VerticalOptions="End" Source="{Binding Image}" WidthRequest="75" HeightRequest="75" />
+                                            <StackLayout Orientation="Vertical">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="{Binding DisplayName}" TextColor="#f35e20" />
+                                                    <Label Text="{Binding FirstName}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+                                                    <Label Text="{Binding LastName}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+                                                </StackLayout>
+                                                <StackLayout>
+                                                    <Label Text="{Binding Email}" TextColor="#f35e20" />
+                                                </StackLayout>
+                                            </StackLayout>
                                         </StackLayout>
-                                        <StackLayout>
-                                            <Label Text="{Binding Email}" TextColor="#f35e20" />
-                                        </StackLayout>
+
                                     </StackLayout>
                                 </StackLayout>
-
-                            </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </userControls1:LoadingUserControl.ContainerContent>
+    </userControls1:LoadingUserControl>
 </ScrollView>

@@ -79,6 +79,15 @@ namespace WhereAreYouMobile.ViewModels.User
             return true;
         }
 
+
+        protected void IsBusyOn()
+        {
+            this.IsBusy = true;
+        }
+        protected void IsBusyOff()
+        {
+            this.IsBusy = false;
+        }
         protected async Task CallWithLoadingAsync(CallWithLoadingDelegate callAction)
         {
             if (callAction ==null)
@@ -86,9 +95,9 @@ namespace WhereAreYouMobile.ViewModels.User
 
             try
             {
-                IsBusy = true;
+                this.IsBusy = true;
                 callAction.Invoke();
-                IsBusy = false;
+                this.IsBusy = false;
             }
             catch (Exception e)
             {
