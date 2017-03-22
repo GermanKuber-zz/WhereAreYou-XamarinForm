@@ -21,7 +21,7 @@
         <StackLayout IsVisible="{Binding Found}">
             <abstractions:CircleImage
                 HorizontalOptions="Start"
-                            VerticalOptions="End"
+                            VerticalOptions="End"   
                             Source="{Binding UserFound.Image}"
                             WidthRequest="75" HeightRequest="75"/>
             <Label Text="Email"></Label>

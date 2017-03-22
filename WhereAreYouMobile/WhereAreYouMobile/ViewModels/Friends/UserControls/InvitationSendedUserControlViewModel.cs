@@ -100,7 +100,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             _friendRequestRepository = DependencyService.Get<IFriendRequestRepository>();
             _identityService = DependencyService.Get<IIdentityService>();
-
+            LoadInvitations();
         }
 
         public async Task LoadInvitations()

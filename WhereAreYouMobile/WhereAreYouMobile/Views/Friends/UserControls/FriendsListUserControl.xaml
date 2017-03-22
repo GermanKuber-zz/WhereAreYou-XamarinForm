@@ -9,7 +9,6 @@
         <userControls:FriendsListUserControlViewModel></userControls:FriendsListUserControlViewModel>
     </ScrollView.BindingContext>
     <StackLayout>
-        <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="Red" IsRunning="True" ></ActivityIndicator>
         <StackLayout Orientation="Horizontal">
             <Entry Placeholder="Email / DisplayName" Text="{Binding Info}"></Entry>
         </StackLayout>

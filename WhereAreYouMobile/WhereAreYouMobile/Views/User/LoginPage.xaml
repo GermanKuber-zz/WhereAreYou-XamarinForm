@@ -10,7 +10,7 @@
         <user:LoginViewModel></user:LoginViewModel>
     </ContentPage.BindingContext>
     <StackLayout VerticalOptions="Center" >
-        <userControls:LoadingUserControl IsBusy="False">
+        <userControls:LoadingUserControl IsBusy="True">
 
             <userControls:LoadingUserControl.ContainerContent >
                 <StackLayout VerticalOptions="Center" Margin="30">

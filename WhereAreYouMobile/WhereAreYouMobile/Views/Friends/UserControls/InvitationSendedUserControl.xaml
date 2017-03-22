@@ -8,30 +8,28 @@
         <userControls:InvitationSendedUserControlViewModel></userControls:InvitationSendedUserControlViewModel>
     </ScrollView.BindingContext>
     <StackLayout>
-        <Button Text="Refresh" Command="{Binding RefreshCommand}"></Button>
-        <ListView RefreshCommand="{Binding RefreshCommand}"  IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsRefreshing}" ItemsSource="{Binding InvitationsSended}" SelectedItem="{Binding InvitationSelected}">
+        <ListView  RowHeight="75" RefreshCommand="{Binding RefreshCommand}"
+                   IsPullToRefreshEnabled="True"
+                   IsRefreshing="{Binding IsRefreshing}" ItemsSource="{Binding InvitationsSended}" SelectedItem="{Binding InvitationSelected}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout BackgroundColor="#eee"
-                                     MinimumHeightRequest="100"
-                        Orientation="Vertical">
-                            <StackLayout Orientation="Horizontal">
-                                <abstractions:CircleImage
-                                                Grid.Column="1"
-                                                Grid.Row="1"
-                                                HorizontalOptions="Start"
-                                                VerticalOptions="End"
-                                                Source="{Binding ImageUserDestination}"
-                                                WidthRequest="75" HeightRequest="75"/>
-                                <Label Text="{Binding DisplayNameUserDestination}"
-                                TextColor="#f35e20" />
-                                <Label Text="{Binding FirstNameUserDestination}"
-                                HorizontalOptions="EndAndExpand"
-                                TextColor="#503026" />
-                                <Label Text="{Binding LastNameUserDestination}"
-                                HorizontalOptions="EndAndExpand"
-                                TextColor="#503026" />
+                        <StackLayout>
+                            <StackLayout BackgroundColor="#eee" MinimumHeightRequest="100" x:Name="itemRender" Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                    <abstractions:CircleImage HorizontalOptions="Start" VerticalOptions="End" Source="{Binding ImageUserDestination}" WidthRequest="75" HeightRequest="75" />
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding DisplayNameUserDestination}" TextColor="#f35e20" />
+                                            <Label Text="{Binding FirstNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+                                            <Label Text="{Binding LastNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Label Text="{Binding EmailUserInvitation}" TextColor="#f35e20" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

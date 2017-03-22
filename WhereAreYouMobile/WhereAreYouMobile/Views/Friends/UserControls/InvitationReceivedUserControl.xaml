@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView x:Name="ScrollViewContainer" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:userControls="clr-namespace:WhereAreYouMobile.ViewModels.Friends.UserControls;assembly=WhereAreYouMobile" xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions" x:Class="WhereAreYouMobile.Views.Friends.UserControls.InvitationReceivedUserControl">
+<ScrollView x:Name="ScrollViewContainer"            
+            xmlns="http://xamarin.com/schemas/2014/forms" 
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:userControls="clr-namespace:WhereAreYouMobile.ViewModels.Friends.UserControls;assembly=WhereAreYouMobile" 
+            xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions" 
+            x:Class="WhereAreYouMobile.Views.Friends.UserControls.InvitationReceivedUserControl">
 	<ScrollView.BindingContext>
 		<userControls:InvitationReceivedUserControlViewModel>
 		</userControls:InvitationReceivedUserControlViewModel>
 	</ScrollView.BindingContext>
     <ActivityIndicator Color="Red" IsRunning="False" ></ActivityIndicator>
     <StackLayout IsVisible="{Binding IsBusy,Converter={StaticResource NegateBooleanConverter}}">
-        <Button Text="Refresh" Command="{Binding RefreshCommand}">
-		</Button>
 		<ListView RowHeight="70" RefreshCommand="{Binding RefreshCommand}" 
-			x:Name="ItemsListView" IsPullToRefreshEnabled="True" 
+			x:Name="ItemsListView"
+                  IsPullToRefreshEnabled="True" 
 			IsRefreshing="{Binding IsRefreshing}" ItemsSource="{Binding Invitations}" SelectedItem="{Binding InvitationSelected}">
 			<ListView.ItemTemplate>
 				<DataTemplate>
