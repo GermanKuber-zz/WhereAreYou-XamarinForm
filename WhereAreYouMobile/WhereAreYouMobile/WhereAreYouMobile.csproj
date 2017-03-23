@@ -49,6 +49,8 @@
     <Compile Include="Data\RegisterUserModel.cs" />
     <Compile Include="Extensions\LoginKeysParser.cs" />
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Abstractions\IEventAgregatorService.cs" />
+    <Compile Include="Services\Common\EventAgregatorTypeEnum.cs" />
     <Compile Include="Services\LoggerService.cs" />
     <Compile Include="Services\AlertService.cs" />
     <Compile Include="Services\Common\UserLogin.cs" />

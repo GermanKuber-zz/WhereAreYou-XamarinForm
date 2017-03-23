@@ -28,7 +28,7 @@
                                             <Label Text="{Binding LastNameUserDestination}" HorizontalOptions="EndAndExpand" TextColor="#503026" />
                                         </StackLayout>
                                         <StackLayout>
-                                            <Label Text="{Binding EmailUserInvitation}" TextColor="#f35e20" />
+                                            <Label Text="{Binding EmailUserDestination}" TextColor="#f35e20" />
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>

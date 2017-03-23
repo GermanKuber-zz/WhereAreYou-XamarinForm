@@ -7,6 +7,7 @@ using WhereAreYouMobile.Abstractions;
 using WhereAreYouMobile.Abstractions.ManagerServices;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
+using WhereAreYouMobile.Services.Common;
 using WhereAreYouMobile.Services.ManagerServices;
 using WhereAreYouMobile.ViewModels.User;
 using Xamarin.Forms;
@@ -15,10 +16,12 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 {
     public class FriendsListUserControlViewModel : BaseViewModel
     {
+
         #region Services
 
         private readonly IFriendsManageService _friendsManageService;
         private readonly IAlertService _alertService;
+        private readonly IEventAgregatorService _eventAgregatorService;
 
         #endregion
 
@@ -52,6 +55,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         private FriendRequest _userSelected;
 
 
+
         public FriendRequest UserSelected
         {
             get { return _userSelected; }
@@ -70,17 +74,18 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             {
                 return new Command(async (profileDelete) =>
                 {
-                    await this.CallWithLoadingAsync(async () =>
+                
+                    var response = await _alertService.DisplayAlertAsync(
+                        $"Esta seguro que quiere eliminar a {((UserProfile)profileDelete).DisplayName}",
+                        "Eliminar Usuario", "Aceptar", "Cancelar");
+                    if (response)
                     {
-                        var response = await _alertService.DisplayAlertAsync(
-                            $"Esta seguro que quiere eliminar a {((UserProfile)profileDelete).DisplayName}",
-                            "Eliminar Usuario", "Aceptar", "Cancelar");
-                        if (response)
-                        {
-                            await _friendsManageService.DeleteFriend((UserProfile)profileDelete);
-                            await LoadDataAsync();
-                        }
-                    });
+                        this.IsBusy = true;
+                        await _friendsManageService.DeleteFriend((UserProfile)profileDelete);
+                        await LoadDataAsync();
+                        this.IsBusy = false;
+                    }
+                  
                 });
             }
         }
@@ -91,12 +96,17 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             _friendsManageService = DependencyService.Get<IFriendsManageService>();
             _alertService = DependencyService.Get<IAlertService>();
-            //MessagingCenter.Subscribe<InvitationReceivedUserControlViewModel>(this, "Hi", (sender) =>
-            //                {
-            //                    var a = "";
-            //                });
+            _eventAgregatorService = DependencyService.Get<IEventAgregatorService>();
+            SubscribeEvents();
             LoadDataAsync();
 
+        }
+
+
+
+        public void SubscribeEvents()
+        {
+            _eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateFriends, async () => await LoadDataAsync());
         }
 
         private async Task LoadDataAsync()

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using WhereAreYouMobile.Abstractions;
 using WhereAreYouMobile.Abstractions.ManagerServices;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
+using WhereAreYouMobile.Services.Common;
 using WhereAreYouMobile.Services.ManagerServices;
 using WhereAreYouMobile.ViewModels.User;
 using Xamarin.Forms;
@@ -12,12 +12,13 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 {
     public class SearchFriendUserControlViewModel : BaseViewModel
     {
+        
         #region Services
         private readonly IFriendRequestRepository _friendRequestRepository;
         private readonly IAlertService _alertService;
         private readonly IIdentityService _identityService;
         private readonly IUsersManageService _usersManageService;
-
+        private readonly IEventAgregatorService _eventAgregatorService;
         #endregion
 
         #region Properties
@@ -163,6 +164,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                         {
                             this.StatusRelationShip = StatusUsers.YouWaitingResponse;
                             await _alertService.DisplayAlertAsync($"Se envio una solicitud de amistad a : {UserFound.Email}");
+                            _eventAgregatorService.Raise(EventAgregatorTypeEnum.UpdateSendedInvitationsFriends);
                         }
                         else
                             await _alertService.DisplayAlertAsync($"Error al enviar una solicitud de amistad a : {UserFound.Email}", "Error");
@@ -205,6 +207,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             _alertService = DependencyService.Get<IAlertService>();
             _identityService = DependencyService.Get<IIdentityService>();
             _usersManageService = DependencyService.Get<IUsersManageService>();
+            _eventAgregatorService = DependencyService.Get<IEventAgregatorService>();
         }
 
         #endregion

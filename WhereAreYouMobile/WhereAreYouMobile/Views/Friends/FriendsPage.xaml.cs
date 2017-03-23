@@ -15,10 +15,5 @@ namespace WhereAreYouMobile.Views.Friends
             InitializeComponent();
 
         }
-
-        private async Task FriendsPage_OnAppearing(object sender, EventArgs e)
-        {
-            await ((InvitationSendedUserControlViewModel)this.searchFriendUserControl.BindingContext).OnAppearingAsync();
-        }
     }
 }

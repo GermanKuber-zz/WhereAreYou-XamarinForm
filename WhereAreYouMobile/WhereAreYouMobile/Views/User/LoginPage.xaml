@@ -14,7 +14,7 @@
             <userControls:LoadingUserControl.ContainerContent >
                 <StackLayout VerticalOptions="Center" Margin="30">
                     <Label Text="Email"></Label>
-                    <Entry Placeholder="Email" Text="{Binding Email}">
+                    <Entry Keyboard="Email" Placeholder="Email" Text="{Binding Email}">
                         <Entry.Behaviors>
                             <behaviors:EmailValidatorBehavior />
                         </Entry.Behaviors>

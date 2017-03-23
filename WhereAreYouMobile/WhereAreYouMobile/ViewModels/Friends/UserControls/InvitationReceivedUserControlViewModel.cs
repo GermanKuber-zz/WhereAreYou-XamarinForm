@@ -5,6 +5,7 @@ using WhereAreYouMobile.Abstractions;
 using WhereAreYouMobile.Abstractions.ManagerServices;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
+using WhereAreYouMobile.Services.Common;
 using WhereAreYouMobile.Services.ManagerServices;
 using WhereAreYouMobile.ViewModels.User;
 using Xamarin.Forms;
@@ -17,6 +18,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         #region Services
 
         private readonly IFriendRequestManagerService _friendRequestManageService;
+        private readonly IEventAgregatorService _eventAgregatorService;
 
         #endregion
 
@@ -35,6 +37,8 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
             }
         }
         private bool _isRefreshing = false;
+  
+
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -59,6 +63,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                     {
                         await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
                         await this.LoadInvitations();
+                        _eventAgregatorService.Raise(EventAgregatorTypeEnum.UpdateFriends);
                     });
                 });
             }
@@ -100,9 +105,9 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         public InvitationReceivedUserControlViewModel()
         {
-            DependencyService.Get<IFriendRequestRepository>();
-            DependencyService.Get<IIdentityService>();
+         
             _friendRequestManageService = DependencyService.Get<IFriendRequestManagerService>();
+            _eventAgregatorService = DependencyService.Get<IEventAgregatorService>();
 
 
             this.LoadInvitations();

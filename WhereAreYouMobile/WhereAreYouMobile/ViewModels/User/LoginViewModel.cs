@@ -32,8 +32,11 @@ namespace WhereAreYouMobile.ViewModels.User
                     this.IsBusy = true;
                     var loginService = DependencyService.Get<ILoginService>();
                     var response = await loginService.LoguinAsync(Email, Password);
-                    this.IsBusy = false;
+                   
                     var alertService = DependencyService.Get<IAlertService>();
+
+                    if (response != LoginResponseEnum.Ok)
+                        this.IsBusy = false;
 
                     if (response == LoginResponseEnum.VerifyData)
                         await alertService.DisplayAlertAsync("Los datos ingresados son Incorrectos");
@@ -41,16 +44,17 @@ namespace WhereAreYouMobile.ViewModels.User
                     if (response == LoginResponseEnum.NeedEmailConfirmation)
                         await alertService.DisplayAlertAsync("Debe verificar su email antes de loguearse a la Aplicación");
                     if (response == LoginResponseEnum.Error)
+                    {
+                       
                         await alertService.DisplayAlertAsync(
                             "Error en el inicio de sesión, verifique con el Administrador");
+                    }
                     else
                     {
                         if (response == LoginResponseEnum.Ok)
-                            await _navigation.NavigateAsync(new DashBoardPage());
+                           await _navigation.NavigateAsync(new DashBoardPage());
                     }
-
-
-
+                
                 });
             }
         }

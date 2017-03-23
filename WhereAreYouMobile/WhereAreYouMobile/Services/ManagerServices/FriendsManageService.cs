@@ -50,8 +50,7 @@ namespace WhereAreYouMobile.Services.ManagerServices
                 var userLogued = await this._identityService.GetUserLoguedAsync();
                  await _friendsRepository.DeleteFriendAsync(userLogued.Id,friendToDelete.Id);
                 var request = await _friendRequestRepository.GetByUsersIdAsync(userLogued.Id, friendToDelete.Id);
-                request.Status = FriendRequestStatusEnum.DeletedFriend;
-                request.DateDeletedFriend = DateTime.Now;
+                request.DeleteFriend();
                 await _friendRequestRepository.SaveAsync(request);
             }
             catch (Exception e)

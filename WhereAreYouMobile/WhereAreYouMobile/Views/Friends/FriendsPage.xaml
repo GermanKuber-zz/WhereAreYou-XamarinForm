@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:friends="clr-namespace:WhereAreYouMobile.Views.Friends;assembly=WhereAreYouMobile"
              xmlns:userControls="clr-namespace:WhereAreYouMobile.Views.Friends.UserControls;assembly=WhereAreYouMobile"
-             x:Class="WhereAreYouMobile.Views.Friends.FriendsPage"
-            Appearing="FriendsPage_OnAppearing">
+             x:Class="WhereAreYouMobile.Views.Friends.FriendsPage">
     <TabbedPage.Children>
         <ContentPage Title="Amigos" >
             <friends:FriendsListUserControl VerticalOptions="Center"></friends:FriendsListUserControl>

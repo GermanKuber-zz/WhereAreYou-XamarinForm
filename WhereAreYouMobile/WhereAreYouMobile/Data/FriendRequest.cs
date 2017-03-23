@@ -53,5 +53,23 @@ namespace WhereAreYouMobile.Data
         {
             
         }
+
+        public void ResponseInvitation(FriendRequestStatusEnum status )
+        {
+            this.Status = status;
+            this.DateResponse = DateTime.Now;
+            
+        }
+
+        public void AcceptInvitation()
+        {
+            this.Status = FriendRequestStatusEnum.Accepted;
+            this.DateAccept = DateTime.Now;
+        }
+        public void DeleteFriend()
+        {
+            this.Status = FriendRequestStatusEnum.DeletedFriend;
+            this.DateDeletedFriend = DateTime.Now;
+        }
     }
 }

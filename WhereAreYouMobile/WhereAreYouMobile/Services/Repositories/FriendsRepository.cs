@@ -29,15 +29,26 @@ namespace WhereAreYouMobile.Services.Repositories
                 //obtengo todos los id de mis amigos
                 //TODO: debo de trabajar con un cache
                 var relations = await this._dataService.Friends.Where(x => x.IdUser == id || x.IdFriend == id).ToEnumerableAsync();
-       
-                var idList = relations.Select(x => x.IdFriend).ToList();
+
                 if (relations != null && relations.Any())
                 {
+                    var idList = new List<string>();
+
+                    foreach (var item in relations)
+                    {
+                        if (item.IdFriend != id)
+                            idList.Add(item.IdFriend);
+                        else if (item.IdUser != id)
+                            idList.Add(item.IdUser);
+                    }
+                    if (relations != null && relations.Any())
+                    {
 
 
-                    var profilesFriends = await _dataService.UserProfileTable
-                            .Where(x => idList.Contains(x.Id)).ToEnumerableAsync();
-                    return profilesFriends;
+                        var profilesFriends = await _dataService.UserProfileTable
+                                .Where(x => idList.Contains(x.Id)).ToEnumerableAsync();
+                        return profilesFriends;
+                    }
                 }
                 return new List<UserProfile>();
             }
@@ -54,14 +65,14 @@ namespace WhereAreYouMobile.Services.Repositories
             {
                 //obtengo todos los id de mis amigos
                 //TODO: debo de trabar con un cache
-                var relationShip = (await this._dataService.Friends.Where(x => (x.IdUser == idUser && x.IdFriend == idFriend)
+                var relationShip = await this._dataService.Friends.Where(x => (x.IdUser == idUser && x.IdFriend == idFriend)
                                                                             ||
-                                                                            (x.IdUser == idFriend && x.IdFriend == idUser)).ToEnumerableAsync())?.SingleOrDefault();
-              
-             
-                if (relationShip != null)
+                                                                            (x.IdUser == idFriend && x.IdFriend == idUser)).ToEnumerableAsync();
+
+                var friend = relationShip.SingleOrDefault();
+                if (friend != null)
                 {
-                    await this._dataService.Friends.DeleteAsync(relationShip);
+                    await this._dataService.Friends.DeleteAsync(friend);
                 }
 
             }

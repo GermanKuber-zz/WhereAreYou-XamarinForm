@@ -9,6 +9,7 @@ using System.Windows.Input;
 using WhereAreYouMobile.Abstractions;
 using WhereAreYouMobile.Abstractions.Repositories;
 using WhereAreYouMobile.Data;
+using WhereAreYouMobile.Services.Common;
 using WhereAreYouMobile.ViewModels.User;
 using Xamarin.Forms;
 
@@ -16,13 +17,13 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 {
     public class InvitationSendedUserControlViewModel : BaseViewModel
     {
-        private readonly IFriendRequestRepository _friendRequestRepository;
 
-        private readonly IIdentityService _identityService;
 
         #region Services
 
-
+        private readonly IFriendRequestRepository _friendRequestRepository;
+        private readonly IIdentityService _identityService;
+        private readonly IEventAgregatorService _eventAgregatorService;
 
         #endregion
 
@@ -100,9 +101,14 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
         {
             _friendRequestRepository = DependencyService.Get<IFriendRequestRepository>();
             _identityService = DependencyService.Get<IIdentityService>();
+            _eventAgregatorService = DependencyService.Get<IEventAgregatorService>();
+            SubscribeEvents();
             LoadInvitations();
         }
-
+        public void SubscribeEvents()
+        {
+            _eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateSendedInvitationsFriends, async () => await LoadInvitations());
+        }
         public async Task LoadInvitations()
         {
             this.IsBusy = true;

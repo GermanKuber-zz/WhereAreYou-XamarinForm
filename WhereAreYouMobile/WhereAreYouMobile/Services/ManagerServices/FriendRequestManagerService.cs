@@ -34,7 +34,7 @@ namespace WhereAreYouMobile.Services.ManagerServices
                 if (friendRequest == null)
                     throw new ArgumentNullException(nameof(friendRequest));
 
-                friendRequest.Status = FriendRequestStatusEnum.Accepted;
+                friendRequest.AcceptInvitation();
 
                 await _friendRequestRepository.SaveAsync(friendRequest);
 

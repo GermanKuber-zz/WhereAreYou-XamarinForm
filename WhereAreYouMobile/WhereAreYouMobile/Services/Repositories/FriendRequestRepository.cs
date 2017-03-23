@@ -36,8 +36,11 @@ namespace WhereAreYouMobile.Services.Repositories
                 //Busco una invitacion entre los mismos destinatarios que este activa o que ya fue acepta (lo que quiere decir que son amigos)
                 var invitation =
                     await this._dataService.FriendRequestTable.Where(
-                        x => x.IdUserDestinationInvitation == profileReceive.Id
-                             && x.IdUserSendInvitation == profileSend.Id
+                        x => ((x.IdUserDestinationInvitation == profileReceive.Id
+                             && x.IdUserSendInvitation == profileSend.Id)
+                             ||
+                             (x.IdUserDestinationInvitation == profileSend.Id
+                             && x.IdUserSendInvitation == profileReceive.Id))
                              &&
                              (x.Status == FriendRequestStatusEnum.Sended
                              || x.Status == FriendRequestStatusEnum.Accepted)).ToEnumerableAsync();
@@ -94,7 +97,7 @@ namespace WhereAreYouMobile.Services.Repositories
                     throw new ArgumentNullException(nameof(idUserSendInvitation));
 
                 return await this._dataService.FriendRequestTable.Where(x => x.IdUserSendInvitation == idUserSendInvitation
-                                                                       && x.Status != FriendRequestStatusEnum.DeletedFriend)
+                                                                       && x.Status == FriendRequestStatusEnum.Sended)
                     .ToEnumerableAsync();
             }
             catch (Exception e)
@@ -131,9 +134,11 @@ namespace WhereAreYouMobile.Services.Repositories
         public async Task<FriendRequest> GetByUsersIdAsync(string idUser, string idFriend)
         {
             var heInvitation = (await this._dataService.FriendRequestTable.Where(
-                    x => (x.IdUserSendInvitation == idUser && x.IdUserDestinationInvitation == idFriend)
+                    x => ((x.IdUserSendInvitation == idUser && x.IdUserDestinationInvitation == idFriend)
                     ||
                     (x.IdUserSendInvitation == idFriend && x.IdUserDestinationInvitation == idUser))
+                    &&
+                    x.Status == FriendRequestStatusEnum.Accepted)
                 .ToEnumerableAsync()).SingleOrDefault();
             return heInvitation;
         }
@@ -147,7 +152,8 @@ namespace WhereAreYouMobile.Services.Repositories
         public async Task<FriendRequest> GetReceivedRequsetAsync(string idUserMain, string idFriendUser)
         {
             var heInvitation = (await this._dataService.FriendRequestTable.Where(
-                    x => (x.IdUserSendInvitation == idFriendUser && x.IdUserDestinationInvitation == idUserMain))
+                    x => (x.IdUserSendInvitation == idFriendUser && x.IdUserDestinationInvitation == idUserMain)
+                    && (x.Status == FriendRequestStatusEnum.Sended || x.Status == FriendRequestStatusEnum.Accepted))
                 .ToEnumerableAsync()).SingleOrDefault();
             return heInvitation;
         }
@@ -162,7 +168,11 @@ namespace WhereAreYouMobile.Services.Repositories
             try
             {
                 var invitation = await this._dataService.FriendRequestTable.Where(
-                        x => (x.IdUserDestinationInvitation == idFriendUser))
+                        x => (x.IdUserDestinationInvitation == idFriendUser)
+                        && 
+                        (x.Status == FriendRequestStatusEnum.Accepted
+                        ||
+                        x.Status == FriendRequestStatusEnum.Sended))
                     .ToListAsync();
 
                 var firsts = invitation.SingleOrDefault();
