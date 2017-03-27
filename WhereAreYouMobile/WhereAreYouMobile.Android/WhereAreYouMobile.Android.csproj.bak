@@ -18,7 +18,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
@@ -220,7 +220,6 @@
     <Compile Include="Services\AuthenticateExternalProxy.cs" />
     <Compile Include="Services\Authenticator.cs" />
     <Compile Include="Services\ConfigFetcher.cs" />
-    <Compile Include="Services\sad.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -244,7 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WhereAreYouMobile\WhereAreYouMobile.csproj">
-      <Project>{c8c59d77-869d-4f3f-be27-80afe688516e}</Project>
+      <Project>{A009F9F8-7250-422D-853A-2BAFE90B0FDF}</Project>
       <Name>WhereAreYouMobile</Name>
     </ProjectReference>
   </ItemGroup>
