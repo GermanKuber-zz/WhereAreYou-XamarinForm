@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WhereAreYouMobile.Abstractions;
+using WhereAreYouMobile.Services.Common;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
@@ -12,19 +13,27 @@ namespace WhereAreYouMobile.ViewModels.Map
         private readonly ILocationService _locationService;
         private readonly List<CustomPin> _pins = new List<CustomPin>();
         private readonly IMapService _mapService;
+        private readonly IEventAgregatorService _eventAgregatorService;
 
         public MapViewModel(CustomMap customMap)
         {
             _customMap = customMap;
             _locationService = DependencyService.Get<ILocationService>();
             _mapService = DependencyService.Get<IMapService>();
+            _eventAgregatorService = DependencyService.Get<IEventAgregatorService>();
             _mapService.SetMap(customMap);
            
             _locationService.UpdateMeLocation((location) =>
             {
                 _mapService.MoveToRegion(location.Latitude,location.Longitude);
             });
+
             CenterMap();
+        }
+
+        private void SubscribirEvents()
+        {
+            _eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateMyFriends, );
         }
 
         private async Task CenterMap()

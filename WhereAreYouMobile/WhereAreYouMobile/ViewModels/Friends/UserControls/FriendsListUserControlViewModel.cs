@@ -106,7 +106,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
 
         public void SubscribeEvents()
         {
-            _eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateFriends, async () => await LoadDataAsync());
+            _eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateMyFriends, async () => await LoadDataAsync());
         }
 
         private async Task LoadDataAsync()

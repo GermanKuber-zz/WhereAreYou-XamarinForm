@@ -63,7 +63,7 @@ namespace WhereAreYouMobile.ViewModels.Friends.UserControls
                     {
                         await _friendRequestManageService.AcceptInviteAsync((FriendRequest)friendRequest);
                         await this.LoadInvitations();
-                        _eventAgregatorService.Raise(EventAgregatorTypeEnum.UpdateFriends);
+                        _eventAgregatorService.Raise(EventAgregatorTypeEnum.UpdateMyFriends);
                     });
                 });
             }

@@ -50,9 +50,9 @@
     <Compile Include="Data\RegisterUserModel.cs" />
     <Compile Include="Extensions\LoginKeysParser.cs" />
     <Compile Include="Models\TaskModel.cs" />
-    <Compile Include="Abstractions\IEventAgregatorService.cs" />
     <Compile Include="Services\Common\EventAgregatorTypeEnum.cs" />
     <Compile Include="Abstractions\IMapService.cs" />
+    <Compile Include="Abstractions\IEventAgregatorService.cs" />
     <Compile Include="Services\MapService.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LoggerService.cs" />
