@@ -60,7 +60,7 @@ namespace WhereAreYouMobile.ViewModels
         private async Task LoadUserDataAsync()
         {
             this.UserDisplayName = (await _identityService.GetUserLoguedAsync())?.DisplayName;
-           this.Image = (await _identityService.GetUserLoguedAsync())?.Image;
+            this.Image = (await _identityService.GetUserLoguedAsync())?.Image;
         }
 
         public MenuViewModel()

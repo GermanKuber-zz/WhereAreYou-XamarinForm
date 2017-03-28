@@ -2,16 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             x:Class="WhereAreYouMobile.Views.Map.MapPage"
-              Title="Map">
+             xmlns:local="clr-namespace:WhereAreYouMobile;assembly=WhereAreYouMobile"
+             xmlns:map="clr-namespace:WhereAreYouMobile.Views.Map;assembly=WhereAreYouMobile"
+             xmlns:customMap="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
+             xmlns:map1="clr-namespace:WhereAreYouMobile.ViewModels.Map;assembly=WhereAreYouMobile"
+             x:Class="WhereAreYouMobile.Views.Map.MapPage" 
+             Title="Map">
     <ScrollView>
         <StackLayout Padding="10">
-            <maps:Map WidthRequest="320" HeightRequest="200"
+            <!--<maps:Map WidthRequest="320" HeightRequest="200"
             x:Name="MyMap"
             IsShowingUser="true"
             MapType="Hybrid"
-        />
+        />-->
 
-        </StackLayout>
+            <map1:CustomMap x:Name="customMap" MapType="Street"  WidthRequest="{x:Static local:App.ScreenWidth}" HeightRequest="{x:Static local:App.ScreenHeight}" />
+            <!--<customMap:TKCustomMap x:Name="customMap" MapType="Street"  WidthRequest="{x:Static local:App.ScreenWidth}" HeightRequest="{x:Static local:App.ScreenHeight}"></customMap:TKCustomMap>-->
+
+
+
+</StackLayout>
     </ScrollView>
 </ContentPage>

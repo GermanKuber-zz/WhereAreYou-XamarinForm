@@ -6,6 +6,7 @@ namespace WhereAreYouMobile.Abstractions.Config
     {
         Task<string> GetAsync(ConfigurationsKeyEnum configElementName, bool readFromSensitiveConfig = false);
     }
+
     public enum ConfigurationsKeyEnum
     {
         DataServiceUrl,
