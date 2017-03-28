@@ -20,7 +20,7 @@ namespace WhereAreYouMobile.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            Xamarin.FormsMaps.Init("qBfJeaHd0ewFeCkKqclA~S5OxSoHdwP0z_8KFgzYt9w~Ald9JtxgnsimzEswi8M4LBiTxzV3mKokR5Onx7FB-M4zeDZlLp15B_vgO0vopaty");
             LoadApplication(new WhereAreYouMobile.App());
         }
     }

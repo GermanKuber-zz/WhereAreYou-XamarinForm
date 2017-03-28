@@ -28,7 +28,7 @@ namespace WhereAreYouMobile.iOS
             // SQLite initialization
             SQLitePCL.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init();
-        
+            Xamarin.FormsMaps.Init();
             LoadApplication(new App());
             //WindowsAzure.MobileServices.CurrentPlatform.Init();
             return base.FinishedLaunching(app, options);

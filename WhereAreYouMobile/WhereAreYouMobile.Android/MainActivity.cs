@@ -18,7 +18,7 @@ namespace WhereAreYouMobile.Droid
             ToolbarResource = Resource.Layout.Toolbar;
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             base.OnCreate(bundle);
-
+            Xamarin.FormsMaps.Init(this, bundle);
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
