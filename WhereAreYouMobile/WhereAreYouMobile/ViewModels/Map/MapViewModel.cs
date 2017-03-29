@@ -33,7 +33,7 @@ namespace WhereAreYouMobile.ViewModels.Map
 
         private void SubscribirEvents()
         {
-            _eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateMyFriends, );
+            //_eventAgregatorService.Subscribe(EventAgregatorTypeEnum.UpdateMyFriends, );
         }
 
         private async Task CenterMap()
